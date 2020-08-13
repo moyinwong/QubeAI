@@ -1,14 +1,15 @@
 const videoElement = document.querySelector('video');
 const videoSelect = document.querySelector('select#videoSource');
+const selectors = [videoSelect];
 
 function gotDevices(deviceInfos) {
     // Handles being called several times to update labels. Preserve values.
-    const value = videoSelect.value;
-
-    while (videoSelect.firstChild) {
-        videoSelect.removeChild(videoSelect.firstChild);
-    }
-
+    const values = selectors.map(select => select.value);
+    selectors.forEach(select => {
+        while (select.firstChild) {
+            select.removeChild(select.firstChild);
+        }
+    });
     for (let i = 0; i !== deviceInfos.length; ++i) {
         const deviceInfo = deviceInfos[i];
         const option = document.createElement('option');
@@ -16,12 +17,15 @@ function gotDevices(deviceInfos) {
         if (deviceInfo.kind === 'videoinput') {
             option.text = deviceInfo.label || `camera ${videoSelect.length + 1}`;
             videoSelect.appendChild(option);
+        } else {
+            console.log('Some other kind of source/device: ', deviceInfo);
         }
     }
-
-    if (Array.prototype.slice.call(videoSelect.childNodes).some(n => n.value === value)) {
-        videoSelect.value = value;
-    }
+    selectors.forEach((select, selectorIndex) => {
+        if (Array.prototype.slice.call(select.childNodes).some(n => n.value === values[selectorIndex])) {
+            select.value = values[selectorIndex];
+        }
+    });
 }
 
 navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
