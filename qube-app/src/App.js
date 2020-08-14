@@ -6,9 +6,13 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-        </Switch>
+        <div className='pageContainer'>
+          <div className='contentContainer'>
+            <Switch>
+              <Route exact path='/' component={HomePage} />
+            </Switch>
+          </div>
+        </div>
       </div>
     </BrowserRouter>
   );

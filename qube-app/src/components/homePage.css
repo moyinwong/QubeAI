@@ -1,0 +1,24 @@
+.homePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: #80aeeb;
+}
+
+.logoContainer {
+    box-sizing: border-box;
+    max-height: 320px;
+    max-width: 320px;
+    height: 100%;
+    width: 100%;
+    padding: 20px 0px;
+}
+
+.logoContainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
