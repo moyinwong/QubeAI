@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
-import HomePage from './components/homePage';
+import LogoPage from './components/logoPage';
+import MainPage from './components/mainPage';
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
         <div className='pageContainer'>
           <div className='contentContainer'>
             <Switch>
-              <Route exact path='/' component={HomePage} />
+              <Route exact path='/' component={LogoPage} />
+              <Route path='/main' component={MainPage} />
             </Switch>
           </div>
         </div>
