@@ -8,3 +8,16 @@
     width: 100%;
     background-color: #80aeeb;
 }
+
+.mainPage a button {
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    padding: 8px 20px;
+    background-color: #ffffff;
+    margin: 8px 0;
+}
+
+.mainPage a button:hover {
+    cursor: pointer;
+}
