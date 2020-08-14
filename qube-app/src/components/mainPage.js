@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './mainPage.css';
 
 class MainPage extends Component {
@@ -6,8 +7,12 @@ class MainPage extends Component {
         return (
             <div className="mainPage">
                 <p>Do you have a Rubik's Cube?</p>
-                <button id="yesBtn">Yes</button>
-                <button id="noBtn">No</button>
+                <Link to={'/scan'}>
+                    <button id="yesBtn">Yes</button>
+                </Link>
+                <Link to={'/virtual'}>
+                    <button id="noBtn">No</button>
+                </Link>
             </div>
         )
     }
