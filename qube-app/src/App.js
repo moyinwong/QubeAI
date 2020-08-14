@@ -1,13 +1,16 @@
 import React from 'react';
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import HomePage from './components/homePage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Qube</h1>
-        <img src={ require('./pic/logo-ver-bg.png') } alt="Logo" width="600" height="600" />
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
