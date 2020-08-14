@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom'
+
+// Routes
 import LogoPage from './components/logoPage';
 import MainPage from './components/mainPage';
 import ScanPage from './components/scanPage';
