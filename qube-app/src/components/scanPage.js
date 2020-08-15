@@ -4,7 +4,7 @@ import './scanPage.css';
 class ScanPage extends Component {
     render() {
         return (
-            <div className="scanPage">
+            <div className="wholePage" id="scanPage">
                 <p>Scan Page</p>
             </div>
         )

@@ -5,7 +5,7 @@ import './mainPage.css';
 class MainPage extends Component {
     render() {
         return (
-            <div className="mainPage">
+            <div className="wholePage" id="mainPage">
                 <p>Do you have a Rubik's Cube?</p>
                 <Link to={'/transitScan'}>
                     <button id="yesBtn">Yes</button>

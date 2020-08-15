@@ -4,7 +4,7 @@ import './virtualPage.css';
 class VirtualPage extends Component {
     render() {
         return (
-            <div className="virtualPage">
+            <div className="wholePage" id="virtualPage">
                 <p>Virtual Page</p>
             </div>
         )

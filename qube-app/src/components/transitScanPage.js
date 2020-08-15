@@ -9,7 +9,7 @@ class TransitScanPage extends Component {
     }
     render() {
         return (
-            <div className="transitScanPage">
+            <div className="wholePage" id="transitScanPage">
                 <p>Great!  Ready to scan your cube.</p>
             </div>
         )

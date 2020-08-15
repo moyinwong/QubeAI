@@ -9,7 +9,7 @@ class LogoPage extends Component {
     }
     render() {
         return (
-            <div className="logoPage">
+            <div className="wholePage" id="logoPage">
                 <div className="logoContainer">
                     <img src={require('../pic/logo-ver-bg.png')} alt="Logo" />
                 </div>
