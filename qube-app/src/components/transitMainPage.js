@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './mainPage.css';
 
-class MainPage extends Component {
+class TransitMainPage extends Component {
     render() {
         return (
             <div className="wholePage" id="mainPage">
                 <div className="backGroundCover"></div>
                     <p>Do you have a Rubik's Cube with you?</p>
-                    <Link to={'/scan'}>
+                    <Link to={'/transitScan'}>
                         <button id="yesBtn">Yes</button>
                     </Link>
-                    <Link to={'/virtual'}>
+                    <Link to={'/transitVirtual'}>
                         <button id="noBtn">No</button>
                     </Link>
             </div>
@@ -19,4 +19,4 @@ class MainPage extends Component {
     }
 }
 
-export default MainPage;
+export default TransitMainPage;

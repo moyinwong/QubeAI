@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import redirectWithTimer from './redirectWithTimer';
-import './transitScanPage.css';
+import './transitPage.css';
 
 class TransitScanPage extends Component {
     componentDidMount() {

@@ -4,7 +4,7 @@ import './logoPage.css';
 
 class LogoPage extends Component {
     componentDidMount() {
-        redirectWithTimer(this.props, '/main', 2000);
+        redirectWithTimer(this.props, '/transitMain', 2000);
     }
     render() {
         return (

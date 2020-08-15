@@ -4,6 +4,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom'
 // Routes
 import LogoPage from './components/logoPage';
 import MainPage from './components/mainPage';
+import TransitMainPage from './components/transitMainPage';
 import TransitScanPage from './components/transitScanPage';
 import TransitVirtualPage from './components/transitVirtualPage';
 import ScanPage from './components/scanPage';
@@ -18,6 +19,7 @@ function App() {
             <Switch>
               <Route exact path='/' component={LogoPage} />
               <Route path='/main' component={MainPage} />
+              <Route path='/transitMain' component={TransitMainPage} />
               <Route path='/transitScan' component={TransitScanPage} />
               <Route path='/transitVirtual' component={TransitVirtualPage} />
               <Route path='/scan' component={ScanPage} />
