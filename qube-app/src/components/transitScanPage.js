@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import redirectWithTimer from './redirectWithTimer';
 import './transitScanPage.css';
 
 class TransitScanPage extends Component {
     componentDidMount(){
-        setTimeout(() => { 
-            this.props.history.push('/scan');
-        }, 2000)
+        redirectWithTimer(this.props, '/scan', 2000);
     }
     render() {
         return (

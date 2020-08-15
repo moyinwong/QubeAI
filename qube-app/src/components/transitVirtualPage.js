@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import redirectWithTimer from './redirectWithTimer';
 import './transitVirtualPage.css';
 
 class TransitVirtualPage extends Component {
     componentDidMount(){
-        setTimeout(() => { 
-            this.props.history.push('virtual');
-        }, 2000)
+        redirectWithTimer(this.props, '/virtual', 2000);
     }
     render() {
         return (

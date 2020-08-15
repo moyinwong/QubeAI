@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import redirectWithTimer from './redirectWithTimer';
 import './logoPage.css';
 
 class LogoPage extends Component {
-    componentDidMount(){
-        setTimeout(() => { 
-            this.props.history.push('/main');
-        }, 2000)
+    componentDidMount() {
+        redirectWithTimer(this.props, '/main', 2000);
     }
     render() {
         return (
