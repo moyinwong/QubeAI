@@ -18,24 +18,31 @@ body {
   height: 100%;
 }
 
-.navBar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: #80aeeb;
-  position: absolute;
-  z-index: -1;
-}
-
 .contentContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+}
+
+.wholePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.backGroundCover {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-color: #80aeeb;
 }
 
 p {

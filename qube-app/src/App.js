@@ -13,7 +13,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <div className="navBar"></div>
         <div className="pageContainer">
           <div className="contentContainer">
             <Switch>

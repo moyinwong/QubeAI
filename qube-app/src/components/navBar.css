@@ -1,0 +1,53 @@
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100vw;
+  background-color: #80aeeb;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.navBarContent {
+  max-width: 1080px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.navBarContent .elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.navBarContent .elements div {
+  margin: 0 5px;
+}
+
+.navBarContent .elements .icons {
+  font-size: 28px;
+}
+
+@media screen and (max-width: 768px) {
+  .navBar {
+    top: auto;
+    bottom: 0;
+  }
+
+  .navBar .navBarContent {
+    justify-content: space-around;
+  }
+
+  .navBarContent .elements .descriptions {
+    display: none;
+  }
+}

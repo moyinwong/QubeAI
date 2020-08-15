@@ -3,12 +3,13 @@ import redirectWithTimer from './redirectWithTimer';
 import './transitVirtualPage.css';
 
 class TransitVirtualPage extends Component {
-    componentDidMount(){
+    componentDidMount() {
         redirectWithTimer(this.props, '/virtual', 2000);
     }
     render() {
         return (
             <div className="wholePage" id="transitVirtualPage">
+                <div className="backGroundCover"></div>
                 <p>It's fine.  Let's try our virtual cube.</p>
             </div>
         )
