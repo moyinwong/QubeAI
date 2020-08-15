@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {withRouter} from "react-router-dom";
 import './logoPage.css';
 
 class LogoPage extends Component {
@@ -19,4 +18,4 @@ class LogoPage extends Component {
     }
 }
 
-export default withRouter(LogoPage);
+export default LogoPage;

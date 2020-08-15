@@ -7,10 +7,10 @@ class MainPage extends Component {
         return (
             <div className="mainPage">
                 <p>Do you have a Rubik's Cube?</p>
-                <Link to={'/scan'}>
+                <Link to={'/transitScan'}>
                     <button id="yesBtn">Yes</button>
                 </Link>
-                <Link to={'/virtual'}>
+                <Link to={'/transitVirtual'}>
                     <button id="noBtn">No</button>
                 </Link>
             </div>
