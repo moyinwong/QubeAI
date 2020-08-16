@@ -8,8 +8,7 @@ class TransitVirtualPage extends Component {
     }
     render() {
         return (
-            <div className="wholePage" id="transitVirtualPage">
-                <div className="backGroundCover"></div>
+            <div className="wholePage">
                 <p>It's fine.  Let's try our virtual cube.</p>
             </div>
         )

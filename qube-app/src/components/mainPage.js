@@ -6,14 +6,13 @@ class MainPage extends Component {
     render() {
         return (
             <div className="wholePage" id="mainPage">
-                <div className="backGroundCover"></div>
-                    <p>Do you have a Rubik's Cube with you?</p>
-                    <Link to={'/scan'}>
-                        <button id="yesBtn">Yes</button>
-                    </Link>
-                    <Link to={'/virtual'}>
-                        <button id="noBtn">No</button>
-                    </Link>
+                <p>Do you have a Rubik's Cube with you?</p>
+                <Link to={'/scan'}>
+                    <button id="yesBtn">Yes</button>
+                </Link>
+                <Link to={'/virtual'}>
+                    <button id="noBtn">No</button>
+                </Link>
             </div>
         )
     }

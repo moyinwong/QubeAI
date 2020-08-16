@@ -5,7 +5,7 @@
   align-items: center;
   height: 50px;
   width: 100vw;
-  background-color: #80aeeb;
+  background-color: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
@@ -34,27 +34,35 @@
   height: 100%;
   width: 100%;
   padding: 0 10px;
-  color: #000000;
+  color: #8f8f8f;
 }
 
-.navBarContent .active .navElements{
-  color: #4a1aa3 !important;
+.navBarContent .active .navElements {
+  color: #2881f5 !important;
 }
 
 .navElements:hover {
   cursor: pointer;
-  color: #4a1aa3;
+  color: #000000;
 }
 
-.navElements:hover .icons{
+.navElements:hover .icons {
   animation: shakeIcons 0.5s;
 }
 
 @keyframes shakeIcons {
-  0%   {transform: rotate(0deg);}
-  33%  {transform: rotate(-10deg);}
-  67%  {transform: rotate(10deg);}
-  100% {transform: rotate(0deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .navElements div {
@@ -69,14 +77,13 @@
   .navBar {
     top: auto;
     bottom: 0;
+    border-radius: 20px 20px 0 0;
   }
-
   .navBar .navBarContent {
     justify-content: space-around;
   }
-
   .navBarContent a {
-    width: 60px;
+    width: 80px;
   }
 
   .navElements .descriptions {

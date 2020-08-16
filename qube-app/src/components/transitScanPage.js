@@ -8,8 +8,7 @@ class TransitScanPage extends Component {
     }
     render() {
         return (
-            <div className="wholePage" id="transitScanPage">
-                <div className="backGroundCover"></div>
+            <div className="wholePage">
                 <p>Great!  Ready to scan your cube.</p>
             </div>
         )
