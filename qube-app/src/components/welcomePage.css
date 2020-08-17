@@ -1,4 +1,4 @@
-#mainPage {
+.welcomePage {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,7 +8,7 @@
     width: 100vw;
 }
 
-#mainPage a button {
+.welcomePage a button {
     border: none;
     border-radius: 16px;
     outline: none;
@@ -18,7 +18,7 @@
     color: #8f8f8f;
 }
 
-#mainPage a button:hover {
+.welcomePage a button:hover {
     cursor: pointer;
     color: #000000;
 }

@@ -7,7 +7,7 @@ import NavBar from './navBar';
 class VirtualPage extends Component {
     render() {
         return (
-            <div className="wholePage" id="virtualPage">
+            <div className="virtualPage">
                 <NavBar />
                 <p>Virtual Page</p>
             </div>

@@ -77,16 +77,22 @@
   .navBar {
     top: auto;
     bottom: 0;
+    height: 54px;
     border-radius: 20px 20px 0 0;
   }
   .navBar .navBarContent {
     justify-content: space-around;
   }
   .navBarContent a {
-    width: 80px;
+    width: 100px;
   }
-
+  .navElements {
+    flex-direction: column;
+  }
+  .navElements .icons {
+    font-size: 24px;
+  }
   .navElements .descriptions {
-    display: none;
+    font-size: 12px;
   }
 }

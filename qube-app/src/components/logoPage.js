@@ -4,14 +4,12 @@ import './logoPage.css';
 
 class LogoPage extends Component {
     componentDidMount() {
-        redirectWithTimer(this.props, '/transitMain', 2000);
+        redirectWithTimer(this.props, '/welcome', 2000);
     }
     render() {
         return (
-            <div className="wholePage" id="logoPage">
-                <div className="logoContainer">
-                    <img src={require('../pic/logo-ver-bg.png')} alt="Logo" />
-                </div>
+            <div className="logoContainer">
+                <img src={require('../pic/logo-ver-bg.png')} alt="Logo" />
             </div>
         )
     }

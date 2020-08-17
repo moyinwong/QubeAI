@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import './mainPage.css';
+import './welcomePage.css';
 
-class TransitMainPage extends Component {
+class WelcomePage extends Component {
     render() {
         return (
-            <div className="wholePage" id="mainPage">
+            <div className="welcomePage">
                 <p>Do you have a Rubik's Cube with you?</p>
                 <Link to={'/transitScan'}>
                     <button id="yesBtn">Yes</button>
@@ -18,4 +18,4 @@ class TransitMainPage extends Component {
     }
 }
 
-export default TransitMainPage;
+export default WelcomePage;
