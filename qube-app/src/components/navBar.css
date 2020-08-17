@@ -33,7 +33,6 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  padding: 0 10px;
   color: #8f8f8f;
 }
 
@@ -41,13 +40,22 @@
   color: #2881f5 !important;
 }
 
-.navElements:hover {
-  cursor: pointer;
-  color: #000000;
+.desktopDescriptions {
+  display: block;
 }
 
-.navElements:hover .icons {
-  animation: shakeIcons 0.5s;
+.mobileDescriptions {
+  display: none;
+}
+
+@media screen and (min-width: 769px) {
+  .navElements:hover {
+    cursor: pointer;
+    color: #000000;
+  }
+  .navElements:hover .icons{
+    animation: shakeIcons 0.5s;
+  }
 }
 
 @keyframes shakeIcons {
@@ -84,7 +92,7 @@
     justify-content: space-around;
   }
   .navBarContent a {
-    width: 100px;
+    width: 60px;
   }
   .navElements {
     flex-direction: column;
@@ -92,7 +100,14 @@
   .navElements .icons {
     font-size: 24px;
   }
-  .navElements .descriptions {
+  .desktopDescriptions {
+    display: none;
+  }
+  .mobileDescriptions {
+    display: block;
     font-size: 12px;
+  }
+  .navBorder {
+    display: block;
   }
 }

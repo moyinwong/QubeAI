@@ -8,6 +8,7 @@ import TransitScanPage from './components/transitScanPage';
 import TransitVirtualPage from './components/transitVirtualPage';
 import ScanPage from './components/scanPage';
 import VirtualPage from './components/virtualPage';
+import SolvePage from './components/solvePage';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path='/transitVirtual' component={TransitVirtualPage} />
                 <Route path='/scan' component={ScanPage} />
                 <Route path='/virtual' component={VirtualPage} />
+                <Route path='/solve' component={SolvePage} />
               </Switch>
             </div>
           </div>
