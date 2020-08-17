@@ -7,7 +7,7 @@ import NavBar from './navBar';
 class ScanPage extends Component {
     render() {
         return (
-            <div className="wholePage" id="scanPage">
+            <div className="scanPage">
                 <NavBar />
                 <p>Scan Page</p>
             </div>

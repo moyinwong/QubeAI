@@ -7,10 +7,10 @@ class NavBar extends Component {
         return (
             <div className="navBar">
                 <div className="navBarContent">
-                    <NavLink to={'/main'}>
+                    <NavLink to={'/welcome'}>
                         <div className="navElements">
                             <div className="icons"><i className="fas fa-home"></i></div>
-                            <div className="descriptions">HomePage</div>
+                            <div className="descriptions">Welcome Page</div>
                         </div>
                     </NavLink>
                     <NavLink to={'/scan'}>
