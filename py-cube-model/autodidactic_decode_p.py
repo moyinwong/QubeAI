@@ -1,17 +1,11 @@
-import keras.backend as K
-import numpy as np
-from keras.layers import Dense, Input, CuDNNGRU, LeakyReLU, Subtract
-from keras.models import Model
-from keras.optimizers import Adam
+import tensorflow.keras.backend as K
+from tensorflow.keras.layers import Dense, Input, LeakyReLU
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 
-from utils import gen_sample, action_map, flatten_1d_b, inv_action_map, perc_solved_cube
-import keras.backend as K
+from utils import gen_sample, action_map, perc_solved_cube
 import numpy as np
-from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-from keras.layers import Dense, Input, LeakyReLU
-from keras.models import Model
-from keras.optimizers import Adam
-from tqdm import tqdm
+
 
 from utils import action_map_small, gen_sequence, get_all_possible_actions_cube_small, chunker, \
     flatten_1d_b
@@ -48,7 +42,8 @@ def get_model(lr=0.0001):
 
     model.compile(loss={"value": "mae", "policy": "sparse_categorical_crossentropy"}, optimizer=Adam(lr),
                   metrics={"policy": acc})
-    model.summary()
+    #model.summary()
+
 
     return model
 

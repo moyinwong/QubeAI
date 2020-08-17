@@ -1,57 +1,13 @@
-import keras.backend as K
+import tensorflow.keras.backend as K
+from utils import action_map, flatten_1d_b, perc_solved_cube
 import numpy as np
-from keras.layers import Dense, Input, CuDNNGRU, LeakyReLU, Subtract
-from keras.models import Model
-from keras.optimizers import Adam
-
-from utils import gen_sample, action_map, flatten_1d_b, inv_action_map, perc_solved_cube
-import keras.backend as K
-import numpy as np
-from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-from keras.layers import Dense, Input, LeakyReLU
-from keras.models import Model
-from keras.optimizers import Adam
-from tqdm import tqdm
-
-from utils import action_map_small, gen_sequence, get_all_possible_actions_cube_small, chunker, \
-    flatten_1d_b
-
-from matplotlib import pyplot as plt
+from autodidactic_decode_p import get_model
+import pycuber as pc
 
 def acc(y_true, y_pred):
     return K.cast(K.equal(K.max(y_true, axis=-1),
                           K.cast(K.argmax(y_pred, axis=-1), K.floatx())),
                   K.floatx())
-
-
-def get_model(lr=0.0001):
-    input1 = Input((324,))
-
-    d1 = Dense(1024)
-    d2 = Dense(1024)
-    d3 = Dense(1024)
-
-    d4 = Dense(50)
-
-    x1 = d1(input1)
-    x1 = LeakyReLU()(x1)
-    x1 = d2(x1)
-    x1 = LeakyReLU()(x1)
-    x1 = d3(x1)
-    x1 = LeakyReLU()(x1)
-    x1 = d4(x1)
-    x1 = LeakyReLU()(x1)
-
-    out_value = Dense(1, activation="linear", name="value")(x1)
-    out_policy = Dense(len(action_map_small), activation="softmax", name="policy")(x1)
-
-    model = Model(input1, [out_value, out_policy])
-
-    model.compile(loss={"value": "mae", "policy": "sparse_categorical_crossentropy"}, optimizer=Adam(lr),
-                  metrics={"policy": acc})
-    #model.summary()
-
-    return model
 
 def solve(Cube):
 
@@ -96,7 +52,7 @@ def solve(Cube):
             new_list_sequences.append(x + [cube_1])
 
 
-        #print("new_list_sequences", len(new_list_sequences))
+        # print("new_list_sequences", len(new_list_sequences))
         last_states_flat = [flatten_1d_b(x[-1]) for x in new_list_sequences]
         value, _ = model.predict(np.array(last_states_flat), batch_size=1024)
         value = value.ravel().tolist()
@@ -122,5 +78,14 @@ def solve(Cube):
 
     return success, action_list
 
+def turn(json):
+    new_cubies = set()
+    print(json)
 
+
+    #create cubies from input
+
+
+    new_cube = pc.Cube(new_cubies)
+    return new_cube
 

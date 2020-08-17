@@ -1,5 +1,5 @@
 import pycuber as pc
-from utils import gen_sample, action_map, flatten_1d_b
+from utils import gen_sample
 from solve import solve
 from pycuber.solver import CFOPSolver
 

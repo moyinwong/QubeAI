@@ -1,9 +1,9 @@
-import keras.backend as K
+import tensorflow.keras.backend as K
 import numpy as np
-from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-from keras.layers import Dense, Input, LeakyReLU
-from keras.models import Model
-from keras.optimizers import Adam
+from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from tensorflow.keras.layers import Dense, Input, LeakyReLU
+from tensorflow.keras.models import Model
+from tensorflow.keras.optimizers import Adam
 from tqdm import tqdm
 
 from utils import action_map_small, gen_sequence, get_all_possible_actions_cube_small, chunker, \
@@ -62,7 +62,8 @@ if __name__ == "__main__":
     callbacks_list = [checkpoint, early, reduce_on_plateau]
 
     model = get_model(lr=0.0001)
-    model.load_weights(file_path)
+    #if there is a exist model
+    #model.load_weights(file_path)
 
     for i in range(N_EPOCH):
         cubes = []
