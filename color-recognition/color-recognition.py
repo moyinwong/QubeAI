@@ -84,9 +84,9 @@ def average_hsv(roi):
     v = 0
     num = 0
     for y in range(len(roi)):
-        # if y % 2 == 0:
+        if y % 3 == 0:
             for x in range(len(roi[y])):
-                # if x % 2 == 0:
+                if x % 3 == 0:
                     chunk = roi[y][x]
                     num += 1
                     h += chunk[0]
@@ -105,9 +105,11 @@ def get_color_name(hsv):
     """
     (h,s,v) = hsv
     #print((h,s,v))
-    if h < 20 and v < 100:
+    if s <= 30:
+        return 'white'
+    elif (h < 5 ) | (h > 130 and h < 180):
         return 'red'
-    if h <= 10 and v > 100:
+    elif h < 20:
         return 'orange'
     elif h <= 30 and s <= 100:
         return 'white'
@@ -115,10 +117,8 @@ def get_color_name(hsv):
         return 'yellow'
     elif h <= 85:
         return 'green'
-    elif h <= 130:
+    else:
         return 'blue'
-
-    return 'white'
 
 while True:
     success, img = cap.read()
