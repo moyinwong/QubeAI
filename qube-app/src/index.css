@@ -33,7 +33,8 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: #80aeeb;
+  /* background-color: #80aeeb; */
+  background-image: linear-gradient(143deg, rgb(116, 216, 252),rgb(160,158,240));
 }
 
 p {
