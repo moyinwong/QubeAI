@@ -8,56 +8,6 @@ cap.set(3, 640)
 cap.set(4, 480)
 cap.set(10, 150)
 
-
-#respective hsv range for each color obtained through trackbars
-myColors = [[71, 129, 48, 154, 255, 213], #blue
-            [4, 148, 161, 176, 201, 214], #orange
-            [22, 91, 123, 39, 255, 246],  #yellow
-            [176, 134, 49, 179, 255, 255], #red
-            [0, 44, 134, 132, 77, 178], #white
-            [45, 117, 46, 71, 255, 255]] #green
-
-
-#initial state for preview sticker
-state = [0, 0, 0,
-         0, 0, 0,
-         0, 0, 0]
-
-
-#define stickers coordinate on the window of webcam
-def get_sticker_coordinates(name):
-    stickers = {
-        'main': [
-            [200, 120], [300, 120], [400, 120],
-            [200, 220], [300, 220], [400, 220],
-            [200, 320], [300, 320], [400, 320]
-        ],
-        'preview': [
-            [20, 130], [54, 130], [88, 130],
-            [20, 164], [54, 164], [88, 164],
-            [20, 198], [54, 198], [88, 198]
-        ]
-    }
-    return stickers[name]
-
-
-#sticker
-sticker = get_sticker_coordinates('main')
-preview_stickers = get_sticker_coordinates('preview')
-
-
-#draw stickers function
-def draw_main_sticker(frame):
-    for x,y in sticker:
-        cv2.rectangle(frame, (x,y), (x+30,y+30), (255,255,255), 2)
-
-
-def draw_preview_stickers(frame, state_of_roi):
-    """Draws the 9 preview stickers in the frame."""
-    for index,(x,y) in enumerate(preview_stickers):
-        cv2.rectangle(frame, (x,y), (x+32, y+32), name_to_rgb(state_of_roi[index]), -1)
-        
-        
 #convert color name to bgr value
 def name_to_rgb(name):
     """
@@ -75,6 +25,49 @@ def name_to_rgb(name):
         'yellow' : (0,255,255)
     }
     return color[name]
+
+
+#define stickers coordinate on the window of webcam
+def get_sticker_coordinates(name):
+    stickers = {
+        'main': [
+            [200, 120], [300, 120], [400, 120],
+            [200, 220], [300, 220], [400, 220],
+            [200, 320], [300, 320], [400, 320]
+        ],
+        'preview': [
+            [20, 20], [54, 20], [88, 20],
+            [20, 54], [54, 54], [88, 54],
+            [20, 88], [54, 88], [88, 88]
+        ],
+        'current': [
+            [20, 130], [54, 130], [88, 130],
+            [20, 164], [54, 164], [88, 164],
+            [20, 198], [54, 198], [88, 198]
+        ]
+    }
+    return stickers[name]
+
+
+#sticker
+sticker = get_sticker_coordinates('main')
+preview_stickers = get_sticker_coordinates('preview')
+current_stickers = get_sticker_coordinates('current')
+
+#draw stickers function
+def draw_main_sticker(frame):
+    for x,y in sticker:
+        cv2.rectangle(frame, (x,y), (x+30,y+30), (255,255,255), 2)
+
+def draw_current_stickers(frame, state_of_roi):
+    """Draws the 9 current stickers in the frame."""
+    for index,(x,y) in enumerate(current_stickers):
+        cv2.rectangle(frame, (x,y), (x+32, y+32), name_to_rgb(state_of_roi[index]), -1)
+
+def draw_preview_stickers(frame, state_of_roi):
+    """Draws the 9 preview stickers in the frame."""
+    for index,(x,y) in enumerate(preview_stickers):
+        cv2.rectangle(frame, (x,y), (x+32, y+32), name_to_rgb(state_of_roi[index]), -1)
 
 
 #average the value of hsv inside one sticker
@@ -97,6 +90,7 @@ def average_hsv(roi):
     v /= num
     return (int(h), int(s), int(v))
 
+
 #rules for determining the color
 def get_color_name(hsv):
     """ Get the name of the color based on the hue.
@@ -104,7 +98,6 @@ def get_color_name(hsv):
     :returns: string
     """
     (h,s,v) = hsv
-    #print((h,s,v))
     if s <= 30:
         return 'white'
     elif (h < 5 ) | (h > 130 and h < 180):
@@ -120,19 +113,74 @@ def get_color_name(hsv):
     else:
         return 'blue'
 
-while True:
-    success, img = cap.read()
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    draw_main_sticker(img)
+def color_to_notation(color):
+    """
+    Return the notation from a specific color.
+    We want a user to have green in front, white on top,
+    which is the usual.
 
-    for index, (x,y) in enumerate(sticker):
-        roi = hsv[y:y+32, x:x+32]
-        avg_hsv = average_hsv(roi)
-        color_name = get_color_name(avg_hsv)
-        state[index] = color_name
+    :param color: the requested color
+    """
+    notation = {
+        'green'  : 'F',
+        'white'  : 'U',
+        'blue'   : 'B',
+        'red'    : 'R',
+        'orange' : 'L',
+        'yellow' : 'D'
+    }
+    return notation[color]
 
-    draw_preview_stickers(img, state)
+def scan():
+    sides = {}
 
-    cv2.imshow("Result", img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # initial state for preview sticker
+    state = [0, 0, 0,
+             0, 0, 0,
+             0, 0, 0]
+
+    preview = ['white', 'white', 'white',
+               'white', 'white', 'white',
+               'white', 'white', 'white']
+
+    while True:
+        success, img = cap.read()
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        key = cv2.waitKey(10) & 0xff
+        draw_main_sticker(img)
+        draw_current_stickers(img, preview)
+
+        for index, (x,y) in enumerate(sticker):
+            roi = hsv[y:y+32, x:x+32]
+            avg_hsv = average_hsv(roi)
+
+            # print(avg_hsv)
+            color_name = get_color_name(avg_hsv)
+            state[index] = color_name
+
+            # update when space bar is pressed.
+            if key == 32:
+                preview = list(state)
+                draw_current_stickers(img, state)
+                face = color_to_notation(state[4])
+                # notation = [color_to_notation(color) for color in state]
+                sides[face] = state
+
+        draw_preview_stickers(img, state)
+
+        # append amount of scanned sides
+        text = 'scanned sides: {}/6'.format(len(sides))
+        cv2.putText(img, text, (20, 460), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+
+        # quit on escape.
+        if key == 27:
+            break
+
+        cv2.imshow("Result", img)
+
+    cap.release()
+    cv2.destroyAllWindows()
+    return sides if len(sides) == 6 else False
+
+
+print(scan())
