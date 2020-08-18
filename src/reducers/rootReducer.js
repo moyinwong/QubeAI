@@ -1,10 +1,18 @@
 const initState = {
-    cubeArray: [
-        0, 0, 0, 0, 0, 0
-    ]
+    cubeValue: ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
+    isNavBarRendered: [false],
+    currentPage: ["none"]
 }
 
 const rootReducer = (state = initState, action) => {
+    console.log(state);
+    console.log(action);
+    if (action.type === 'SUBMIT_CUBE') {
+        return {
+            ...state,
+            cubeValue: action.submittedValue
+        };
+    }
     return state;
 }
 

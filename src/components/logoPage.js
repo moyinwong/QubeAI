@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import redirectWithTimer from './redirectWithTimer';
+import redirectWithTimer from '../functions/redirectWithTimer';
 import './logoPage.css';
 
 class LogoPage extends Component {

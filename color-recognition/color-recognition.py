@@ -123,11 +123,11 @@ def color_to_notation(color):
     """
     notation = {
         'green'  : 'F',
-        'white'  : 'U',
+        'white'  : 'D',
         'blue'   : 'B',
-        'red'    : 'R',
-        'orange' : 'L',
-        'yellow' : 'D'
+        'red'    : 'L',
+        'orange' : 'R',
+        'yellow' : 'U'
     }
     return notation[color]
 
@@ -164,7 +164,7 @@ def scan():
                 draw_current_stickers(img, state)
                 face = color_to_notation(state[4])
                 # notation = [color_to_notation(color) for color in state]
-                sides[face] = state
+                sides[face] = list(state)
 
         draw_preview_stickers(img, state)
 
@@ -183,4 +183,46 @@ def scan():
     return sides if len(sides) == 6 else False
 
 
-print(scan())
+def sides_to_notation(sides):
+    all_notations = {}
+    
+    all_notations['L'] = 'red'
+    all_notations['R'] = 'orange'
+    all_notations['U'] = 'yellow'
+    all_notations['D'] = 'white'
+    all_notations['F'] = 'green'
+    all_notations['B'] = 'blue'
+    
+    all_notations['LB'] = [sides['L'][3], sides['B'][5]]
+    all_notations['LF'] = [sides['L'][5], sides['F'][3]]
+    all_notations['LU'] = [sides['L'][1], sides['U'][4]]
+    all_notations['LD'] = [sides['L'][7], sides['D'][3]]
+    all_notations['DB'] = [sides['D'][7], sides['B'][7]]
+    all_notations['DF'] = [sides['D'][1], sides['F'][7]]
+    all_notations['UB'] = [sides['U'][1], sides['B'][1]]
+    all_notations['UF'] = [sides['U'][7], sides['F'][1]]
+    all_notations['RB'] = [sides['R'][5], sides['B'][3]]
+    all_notations['RF'] = [sides['R'][3], sides['F'][5]]
+    all_notations['RU'] = [sides['R'][1], sides['U'][5]]
+    all_notations['RD'] = [sides['R'][7], sides['D'][5]]
+
+    all_notations['LDB'] = [sides['L'][6], sides['D'][6], sides['B'][8]]
+    all_notations['LDF'] = [sides['L'][8], sides['D'][0], sides['F'][6]]
+    all_notations['LUB'] = [sides['L'][0], sides['U'][0], sides['B'][2]]
+    all_notations['LUF'] = [sides['L'][2], sides['U'][6], sides['F'][0]]
+    all_notations['RDB'] = [sides['R'][8], sides['D'][8], sides['B'][6]]
+    all_notations['RDF'] = [sides['R'][6], sides['D'][2], sides['F'][8]]
+    all_notations['RUB'] = [sides['R'][2], sides['U'][2], sides['B'][0]]
+    all_notations['RUF'] = [sides['R'][0], sides['U'][8], sides['F'][2]]
+    return all_notations
+
+# sides for test
+# sides = {'F': ['blue', 'white', 'yellow', 'green', 'green', 'yellow', 'blue', 'blue', 'red'],
+#          'R': ['orange', 'yellow', 'orange', 'red', 'orange', 'white', 'blue', 'yellow', 'orange'],
+#          'B': ['green', 'white', 'yellow', 'blue', 'blue', 'yellow', 'green', 'green', 'green'],
+#          'L': ['red', 'blue', 'white', 'green', 'red', 'orange', 'white', 'orange', 'white'],
+#          'U': ['white', 'orange', 'blue', 'red', 'yellow', 'green', 'green', 'orange', 'orange'],
+#          'D': ['yellow', 'blue', 'yellow', 'red', 'white', 'red', 'red', 'white', 'red']}
+
+all_notations = sides_to_notation(scan())
+print("\n".join("{}\t{}".format(k, v) for k, v in all_notations.items()))
