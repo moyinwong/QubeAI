@@ -5,7 +5,7 @@ import './solvePage.css';
 class SolvePage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').style.display = "flex";
-        navBarAnimation("solve");
+        navBarAnimation(3);
     }
     render() {
         return (

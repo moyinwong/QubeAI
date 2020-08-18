@@ -8,7 +8,7 @@ import './scanPage.css';
 class ScanPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').style.display = "flex";
-        navBarAnimation("scan");
+        navBarAnimation(1);
     }
     submitClick = async () => {
         const submittedValue = await camera();

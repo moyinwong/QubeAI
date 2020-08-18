@@ -8,7 +8,7 @@ import './virtualPage.css';
 class VirtualPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').style.display = "flex";
-        navBarAnimation("virtual");
+        navBarAnimation(2);
     }
     submitClick = async () => {
         const submittedValue = virtualModel();

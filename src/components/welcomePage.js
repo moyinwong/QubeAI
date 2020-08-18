@@ -5,7 +5,7 @@ import './welcomePage.css';
 
 class WelcomePage extends Component {
     componentDidMount() {
-        navBarAnimation("welcome");
+        navBarAnimation(0);
     }
     render() {
         return (
