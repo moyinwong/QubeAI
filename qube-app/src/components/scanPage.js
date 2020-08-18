@@ -11,6 +11,7 @@ class ScanPage extends Component {
     // Testing
     componentDidMount = () => {
         console.log(this.props.cubeValue);
+        console.log(this.props);
     }
     submitClick = async () => {
         const submittedValue = await camera();
@@ -30,4 +31,12 @@ const mapStateToProps = (state) => {
     return { cubeValue: state.cubeValue };
 }
 
-export default connect(mapStateToProps)(ScanPage);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        submitCube: (submittedValue) => {
+            dispatch(submitCube(submittedValue));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScanPage);

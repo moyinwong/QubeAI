@@ -5,11 +5,13 @@ const initState = {
 }
 
 const rootReducer = (state = initState, action) => {
+    console.log(state);
     console.log(action);
     if (action.type === 'SUBMIT_CUBE') {
-        const newCubeValue = JSON.parse(JSON.stringify(state));
-        newCubeValue.cubeValue = action.submittedValue;
-        return newCubeValue;
+        return {
+            ...state,
+            cubeValue: action.submittedValue
+        };
     }
     return state;
 }
