@@ -225,4 +225,4 @@ def sides_to_notation(sides):
 #          'D': ['yellow', 'blue', 'yellow', 'red', 'white', 'red', 'red', 'white', 'red']}
 
 all_notations = sides_to_notation(scan())
-print(all_notations)
+print("\n".join("{}\t{}".format(k, v) for k, v in all_notations.items()))
