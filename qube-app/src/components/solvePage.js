@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './solvePage.css';
 
-// Components
-import NavBar from './navBar';
-
 class SolvePage extends Component {
+    componentWillMount() {
+        document.querySelector('.navBar').style.display = "flex";
+    }
     render() {
         return (
             <div className="solvePage">
-                <NavBar />
                 <p>Solve Page</p>
             </div>
         )

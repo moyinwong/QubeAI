@@ -1,6 +1,6 @@
 const initState = {
     cubeValue: ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-    isNavBarRendered: [false],
+    navBarDisplay: false,
     currentPage: ["none"]
 }
 

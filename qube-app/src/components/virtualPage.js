@@ -4,10 +4,10 @@ import virtualModel from '../functions/virtualModel';
 import { submitCube } from '../actions/submitCube';
 import './virtualPage.css';
 
-// Components
-import NavBar from './navBar';
-
 class VirtualPage extends Component {
+    componentWillMount() {
+        document.querySelector('.navBar').style.display = "flex";
+    }
     submitClick = async () => {
         const submittedValue = virtualModel();
         this.props.submitCube(submittedValue);
@@ -15,7 +15,6 @@ class VirtualPage extends Component {
     render() {
         return (
             <div className="virtualPage">
-                <NavBar />
                 <p>Virtual Page</p>
                 <button onClick={this.submitClick}>Submit Cube</button>
             </div>

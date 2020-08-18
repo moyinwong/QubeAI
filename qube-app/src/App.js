@@ -10,6 +10,9 @@ import ScanPage from './components/scanPage';
 import VirtualPage from './components/virtualPage';
 import SolvePage from './components/solvePage';
 
+// Components
+import NavBar from './components/navBar';
+
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +29,7 @@ function App() {
                 <Route path='/virtual' component={VirtualPage} />
                 <Route path='/solve' component={SolvePage} />
               </Switch>
+              <NavBar />
             </div>
           </div>
         </div>

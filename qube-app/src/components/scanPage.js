@@ -4,10 +4,10 @@ import camera from '../functions/camera';
 import { submitCube } from '../actions/submitCube';
 import './scanPage.css';
 
-// Components
-import NavBar from './navBar';
-
 class ScanPage extends Component {
+    componentWillMount() {
+        document.querySelector('.navBar').style.display = "flex";
+    }
     submitClick = async () => {
         const submittedValue = await camera();
         this.props.submitCube(submittedValue);
@@ -15,7 +15,6 @@ class ScanPage extends Component {
     render() {
         return (
             <div className="scanPage">
-                <NavBar />
                 <button onClick={this.submitClick}>Scan Cube</button>
             </div>
         )

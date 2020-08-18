@@ -4,6 +4,7 @@ import './logoPage.css';
 
 class LogoPage extends Component {
     componentDidMount() {
+        document.querySelector('.navBar').style.display = "none";
         redirectWithTimer(this.props, '/welcome', 2000);
     }
     render() {
