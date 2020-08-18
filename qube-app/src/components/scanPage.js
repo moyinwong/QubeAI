@@ -8,6 +8,7 @@ import './scanPage.css';
 import NavBar from './navBar';
 
 class ScanPage extends Component {
+    // Testing
     componentDidMount = () => {
         console.log(this.props.cubeValue);
     }
