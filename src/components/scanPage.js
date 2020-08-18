@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import camera from '../functions/camera';
+import navBarAnimation from '../functions/navBarAnimation';
 import { submitCube } from '../actions/submitCube';
 import './scanPage.css';
 
 class ScanPage extends Component {
-    componentWillMount() {
+    componentDidMount() {
         document.querySelector('.navBar').style.display = "flex";
+        navBarAnimation("scan");
     }
     submitClick = async () => {
         const submittedValue = await camera();

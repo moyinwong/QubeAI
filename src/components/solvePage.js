@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import navBarAnimation from '../functions/navBarAnimation';
 import './solvePage.css';
 
 class SolvePage extends Component {
-    componentWillMount() {
+    componentDidMount() {
         document.querySelector('.navBar').style.display = "flex";
+        navBarAnimation("solve");
     }
     render() {
         return (

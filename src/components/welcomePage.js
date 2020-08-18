@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import navBarAnimation from '../functions/navBarAnimation';
 import './welcomePage.css';
 
 class WelcomePage extends Component {
+    componentDidMount() {
+        navBarAnimation("welcome");
+    }
     render() {
         return (
             <div className="welcomePage">

@@ -81,6 +81,17 @@
   font-size: 28px;
 }
 
+.navBorder {
+  display: none;
+  background-color: #2881f5;
+  height: 5px;
+  width: 70px;
+  position: absolute;
+  left: calc(((60px + (25vw - 60px)) * 0) + (12.5vw - 35px));
+  bottom: 0;
+  transition: left 0.35s;
+}
+
 @media screen and (max-width: 768px) {
   .navBar {
     top: auto;

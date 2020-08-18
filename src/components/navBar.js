@@ -35,6 +35,7 @@ class NavBar extends Component {
                             <div className="mobileDescriptions">Solve</div>
                         </div>
                     </NavLink>
+                    <div className="navBorder"></div>
                 </div>
             </div>
         )
