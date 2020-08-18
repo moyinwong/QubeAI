@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import virtualModel from '../functions/virtualModel';
 import './virtualPage.css';
 
 // Components
