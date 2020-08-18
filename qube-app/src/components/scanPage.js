@@ -8,11 +8,6 @@ import './scanPage.css';
 import NavBar from './navBar';
 
 class ScanPage extends Component {
-    // Testing
-    componentDidMount = () => {
-        console.log(this.props.cubeValue);
-        console.log(this.props);
-    }
     submitClick = async () => {
         const submittedValue = await camera();
         this.props.submitCube(submittedValue);
@@ -27,6 +22,7 @@ class ScanPage extends Component {
     }
 }
 
+// Connect to Redux Store
 const mapStateToProps = (state) => {
     return { cubeValue: state.cubeValue };
 }
