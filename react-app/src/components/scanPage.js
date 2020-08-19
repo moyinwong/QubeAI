@@ -17,7 +17,10 @@ class ScanPage extends Component {
     render() {
         return (
             <div className="scanPage">
-                <button onClick={this.submitClick}>Scan Cube</button>
+                <video id="cam_input" height="480" width="640"></video>
+                <canvas id="canvasOutput"></canvas>
+                <p id="sidesText"></p>
+                <button onClick={this.submitClick}>Submit Cube</button>
             </div>
         )
     }
