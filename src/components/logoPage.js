@@ -4,7 +4,7 @@ import './logoPage.css';
 
 class LogoPage extends Component {
     componentDidMount() {
-        document.querySelector('.navBar').style.display = "none";
+        document.querySelector('.navBar').classList.add('navBarHidden');
         redirectWithTimer(this.props, '/welcome', 2000);
     }
     render() {

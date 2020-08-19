@@ -7,7 +7,7 @@ import './virtualPage.css';
 
 class VirtualPage extends Component {
     componentDidMount() {
-        document.querySelector('.navBar').style.display = "flex";
+        document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation(2);
     }
     submitClick = async () => {

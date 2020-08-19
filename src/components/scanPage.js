@@ -7,7 +7,7 @@ import './scanPage.css';
 
 class ScanPage extends Component {
     componentDidMount() {
-        document.querySelector('.navBar').style.display = "flex";
+        document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation(1);
     }
     submitClick = async () => {

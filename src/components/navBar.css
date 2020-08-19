@@ -9,6 +9,11 @@
   position: fixed;
   top: 0;
   left: 0;
+  transition: 0.5s ease-out;
+}
+
+.navBarHidden {
+  top: -50px;
 }
 
 .navBarContent {
@@ -98,6 +103,9 @@
     bottom: 0;
     height: 54px;
     border-radius: 20px 20px 0 0;
+  }
+  .navBarHidden {
+    bottom: -54px;
   }
   .navBar .navBarContent {
     justify-content: space-around;
