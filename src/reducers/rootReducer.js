@@ -1,7 +1,5 @@
 const initState = {
-    cubeValue: ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-    navBarDisplay: false,
-    currentPage: ["none"]
+    cubeValue: ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
 }
 
 const rootReducer = (state = initState, action) => {
