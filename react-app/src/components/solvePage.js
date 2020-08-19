@@ -9,7 +9,7 @@ class SolvePage extends Component {
         navBarAnimation(3);
     }
     connectExpress = async () => {
-        const result = await axios.get("/express");
+        const result = await axios.get("http://localhost:8080/express");
         console.log(result);
     }
     render() {
