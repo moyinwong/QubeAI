@@ -18,6 +18,7 @@ class VirtualPage extends Component {
         return (
             <div className="virtualPage">
                 <p>Virtual Page</p>
+                <div className="canvas" id="canvas">Canvas</div>
                 <button onClick={this.submitClick}>Submit Cube</button>
             </div>
         )
