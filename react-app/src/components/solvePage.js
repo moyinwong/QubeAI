@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import navBarAnimation from '../functions/navBarAnimation';
 import './solvePage.css';
@@ -8,18 +9,22 @@ class SolvePage extends Component {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation(3);
     }
-    connectExpress = async () => {
-        const result = await axios.get("/express");
-        console.log(result);
+    solveCube = async () => {
+        const result = await axios.post("/solveCube", this.props.cubeValue);
+        console.log(result.data);
     }
     render() {
         return (
             <div className="solvePage">
-                <p>Solve Page</p>
-                <button className="express" onClick={this.connectExpress}>Connect to Express</button>
+                <button className="solveCube" onClick={this.solveCube}>Solve Cube</button>
             </div>
         )
     }
 }
 
-export default SolvePage;
+// Connect to Redux Store
+const mapStateToProps = (state) => {
+    return { cubeValue: state.cubeValue };
+}
+
+export default connect(mapStateToProps)(SolvePage);
