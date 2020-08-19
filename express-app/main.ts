@@ -47,9 +47,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // ---------------------------------------------------------------------------------------------------------------
 
 // Submit Cube Data
-app.use('/express', async (req: Request, res: Response) => {
+app.use('/solveCube', async (req: Request, res: Response) => {
 
-    const result = "Connected to Express suscessfully.  Yeah!";
+    console.log(req.body);
+    const result = `Connected to Express suscessfully.  Received: ${req.body[0]}, ${req.body[1]}, ${req.body[2]}...`;
 
     if (req.session) {
         res.json(result);
