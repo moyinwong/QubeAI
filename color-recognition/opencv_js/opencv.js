@@ -291,8 +291,6 @@ function openCvReady() {
             sidesText = document.getElementById('sidesText')
             sidesText.innerHTML = `scanned sides: ${sidesLength}/6`
 
-            text = `scanned sides: ${sides.length}/6`
-
             // cv.putText(dst, text)
             cv.imshow("canvasOutput", dst);
 
