@@ -1,0 +1,24 @@
+.logoContainer {
+    box-sizing: border-box;
+    max-height: 320px;
+    max-width: 320px;
+    height: 100%;
+    width: 100%;
+    padding: 20px 0px;
+    animation: showLogo 1.5s ease-in-out;
+}
+
+@keyframes showLogo {
+    0% {
+        height: 0%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+
+.logoContainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}

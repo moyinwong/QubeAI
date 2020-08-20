@@ -1,0 +1,24 @@
+.welcomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: 100%;
+    width: 100vw;
+}
+
+.welcomePage a button {
+    border: none;
+    border-radius: 16px;
+    outline: none;
+    padding: 8px 20px;
+    background-color: #ffffff;
+    margin: 8px 0;
+    color: #8f8f8f;
+}
+
+.welcomePage a button:hover {
+    cursor: pointer;
+    color: #000000;
+}
