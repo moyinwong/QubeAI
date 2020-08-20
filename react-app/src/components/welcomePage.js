@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import navBarAnimation from '../functions/navBarAnimation';
+import { changePage } from '../actions/changePage';
 import './welcomePage.css';
 
 class WelcomePage extends Component {
     componentDidMount() {
-        navBarAnimation(0);
+        navBarAnimation("welcome");
+        this.props.changePage("welcome");
     }
     render() {
         return (
@@ -22,4 +25,17 @@ class WelcomePage extends Component {
     }
 }
 
-export default WelcomePage;
+// Connect to Redux Store
+const mapStateToProps = (state) => {
+    return { currentPage: state.currentPage };
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WelcomePage);

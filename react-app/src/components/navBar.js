@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './navBar.css';
 
 class NavBar extends Component {
+    state = {
+        currentPage: this.props.currentPage
+    }
     render() {
         return (
             <div className="navBar">
@@ -42,4 +46,9 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+// Connect to Redux Store
+const mapStateToProps = (state) => {
+    return { currentPage: state.currentPage };
+}
+
+export default connect(mapStateToProps)(NavBar);

@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
 import virtualModel from '../functions/virtualModel';
-import { submitCube } from '../actions/submitCube';
+import { changePage } from '../actions/changePage';
 import './virtualPage.css';
 
 class VirtualPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
-        navBarAnimation(2);
-    }
-    submitClick = async () => {
-        const submittedValue = virtualModel();
-        this.props.submitCube(submittedValue);
+        navBarAnimation("virtual");
+        this.props.changePage("virtual");
     }
     render() {
         return (
@@ -27,13 +24,13 @@ class VirtualPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { cubeValue: state.cubeValue };
+    return { currentPage: state.currentPage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitCube: (submittedValue) => {
-            dispatch(submitCube(submittedValue));
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage));
         }
     }
 }

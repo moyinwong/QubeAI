@@ -1,14 +1,14 @@
 const initState = {
-    cubeValue: ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
+    currentPage: "welcome"
 }
 
 const rootReducer = (state = initState, action) => {
     console.log(state);
     console.log(action);
-    if (action.type === 'SUBMIT_CUBE') {
+    if (action.type === 'CHANGE_PAGE') {
         return {
             ...state,
-            cubeValue: action.submittedValue
+            currentPage: action.currentPage
         };
     }
     return state;

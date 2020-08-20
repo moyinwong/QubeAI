@@ -3,19 +3,18 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import navBarAnimation from '../functions/navBarAnimation';
 import getCubeValue from '../functions/getCubeValue';
-import { submitCube } from '../actions/submitCube';
+import { changePage } from '../actions/changePage';
 import './solvePage.css';
 
 class SolvePage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
-        navBarAnimation(3);
-        const submittedValue = getCubeValue();
-        this.props.submitCube(submittedValue);
-        console.log(submittedValue);
+        navBarAnimation("solve");
+        this.props.changePage("solve");
     }
     solveCube = async () => {
-        const result = await axios.post("/solveCube", this.props.cubeValue);
+        const valueToBeSubmitted = getCubeValue();
+        const result = await axios.post("/solveCube", valueToBeSubmitted);
         console.log(result.data);
     }
     render() {
@@ -29,13 +28,13 @@ class SolvePage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { cubeValue: state.cubeValue };
+    return { currentPage: state.currentPage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitCube: (submittedValue) => {
-            dispatch(submitCube(submittedValue));
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage));
         }
     }
 }

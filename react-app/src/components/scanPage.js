@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
-import { submitCube } from '../actions/submitCube';
+import { changePage } from '../actions/changePage';
 import './scanPage.css';
 // import {openCvReady} from '../functions/openCV/color-recognition'
 
 class ScanPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
-        navBarAnimation(1);
+        navBarAnimation("scan");
+        this.props.changePage("scan");
     }
     render() {
         return (
@@ -27,13 +28,13 @@ class ScanPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { cubeValue: state.cubeValue };
+    return { currentPage: state.currentPage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitCube: (submittedValue) => {
-            dispatch(submitCube(submittedValue));
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage));
         }
     }
 }
