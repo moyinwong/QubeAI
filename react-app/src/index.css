@@ -1,3 +1,5 @@
+/* ------------------------------------------Page------------------------------------------ */
+
 body {
   margin: 0;
   padding: 0;
@@ -37,8 +39,11 @@ body {
   background: linear-gradient(180deg, #56ccf2 0%, #2f80ed 100%);
 }
 
+/* ------------------------------------------Common Elements------------------------------------------ */
+
 p {
   font-size: 20px;
+  margin: 0;
 }
 
 button {
@@ -48,7 +53,6 @@ button {
   outline: none;
   height: 46px;
   width: 160px;
-  margin-top: 12px;
   background-color: rgb(224, 139, 43);
   color: #ffffff;
   /* background: linear-gradient(-45deg, rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.25)); */

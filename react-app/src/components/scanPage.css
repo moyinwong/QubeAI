@@ -1,8 +1,47 @@
+.scanPage {
+    padding-top: 60px;
+}
+
 #cam_input {
     display: none;
 }
 
-#canvasOutput {
-    height: 300px;
-    width: 400px;
+.scanPage .btnContainerHor {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+@media screen and (orientation: landscape) {
+    #canvasOutput {
+        height: 60vh;
+        width: 80vh;
+    }
+    .scanPage .btnContainerHor {
+        flex-direction: row;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    #canvasOutput {
+        height: 66vw;
+        width: 88vw;
+    }
+    .scanPage .btnContainerHor {
+        flex-direction: column;
+    }
+    .scanPage .btnContainerHor button {
+        margin-bottom: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .scanPage {
+        padding-top: 0;
+    }
+}
+
+.highLightedText {
+    margin: 10px 0;
 }

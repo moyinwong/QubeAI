@@ -18,9 +18,13 @@ class ScanPage extends Component {
                     window.openCamera()
                 }}></video>
                 <canvas id="canvasOutput"></canvas>
-                <p id="sidesText"></p>
-                <button id="scan">Scan Side</button>
-                <button id="notations">Submit Cube</button>
+                <div className="highLightedText">
+                    <p id="sidesText"></p>
+                </div>
+                <div className="btnContainerHor">
+                    <button id="scan">Scan Side</button>
+                    <button id="notations">Submit Cube</button>
+                </div>
             </div>
         )
     }
