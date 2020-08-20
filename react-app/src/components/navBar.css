@@ -55,7 +55,7 @@
     cursor: pointer;
     color: #000000;
   }
-  .navElements:hover .icons{
+  .navElements:hover .icons {
     animation: shakeIcons 0.5s;
   }
 }
@@ -84,12 +84,13 @@
 }
 
 .navBorder {
-  display: none;
+  display: block;
   height: 5px;
-  width: 70px;
+  width: 160px;
   position: absolute;
   left: calc(((60px + (25vw - 60px)) * 0) + (12.5vw - 35px));
-  bottom: 0;
+  top: 45px;
+  bottom: auto;
   transition: background-color 0.5s, left 0.35s;
 }
 
@@ -123,6 +124,9 @@
     font-size: 12px;
   }
   .navBorder {
-    display: block;
+    width: 70px;
+    left: calc(((60px + (25vw - 60px)) * 0) + (12.5vw - 35px));
+    top: auto;
+    bottom: 0;
   }
 }

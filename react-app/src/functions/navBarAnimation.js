@@ -34,8 +34,16 @@ const navBarAnimation = (currentPage) => {
     }
     activeNavElement.style.color = colorIndex;
     navBorder.style.backgroundColor = colorIndex;
-    /* left: calc(((60px + 2 * ((100vw - 240px) / 8)) * positionIndex) + ((100vw - 240px) / 8) - 5px); */
-    navBorder.style.left = `calc(((60px + (25vw - 60px)) * ${positionIndex}) + (12.5vw - 35px))`;
+
+    if (document.body.clientWidth > 1080) {
+        navBorder.style.left = `calc((160px * ${positionIndex}) + ((100vw - 1080px) / 2))`;
+    } else if (document.body.clientWidth > 768) {
+        navBorder.style.left = `calc(160px * ${positionIndex})`;
+    } else {
+        /* left: calc(((60px + 2 * ((100vw - 240px) / 8)) * positionIndex) + ((100vw - 240px) / 8) - 5px); */
+        navBorder.style.left = `calc(((60px + (25vw - 60px)) * ${positionIndex}) + (12.5vw - 35px))`;
+    }
+
 }
 
 export default navBarAnimation;
