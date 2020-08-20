@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import camera from '../functions/camera';
 import navBarAnimation from '../functions/navBarAnimation';
 import { submitCube } from '../actions/submitCube';
 import './scanPage.css';
@@ -11,23 +10,16 @@ class ScanPage extends Component {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation(1);
     }
-    submitClick = async () => {
-        const submittedValue = await camera();
-        this.props.submitCube(submittedValue);
-        console.log(submittedValue);
-    }
     render() {
         return (
             <div className="scanPage">
-                <video id="cam_input" height="480" width="640" style={{display: 'none'}} ref={function(){
+                <video id="cam_input" height="480" width="640" style={{ display: 'none' }} ref={function () {
                     window.openCamera()
                 }}></video>
                 <canvas id="canvasOutput"></canvas>
                 <p id="sidesText"></p>
-                <button id="scan" style={{fontSize: 40}}>scan</button>
-                <button id="notations" style={{fontSize: 40}}>get all notations</button>
-                <p id="sidesText" style={{fontSize: 40}}></p>
-                <button onClick={this.submitClick}>Submit Cube</button>
+                <button id="scan" style={{ fontSize: 40 }}>Scan Side</button>
+                <button id="notations" style={{ fontSize: 40 }}>Submit Cube</button>
             </div>
         )
     }

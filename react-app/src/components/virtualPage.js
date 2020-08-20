@@ -19,7 +19,7 @@ class VirtualPage extends Component {
             <div className="virtualPage">
                 <p>Virtual Page</p>
                 <div className="canvas" id="canvas">Canvas</div>
-                <button onClick={this.submitClick}>Submit Cube</button>
+                <button>Submit Cube</button>
             </div>
         )
     }
