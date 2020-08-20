@@ -14,13 +14,13 @@ class ScanPage extends Component {
     render() {
         return (
             <div className="scanPage">
-                <video id="cam_input" height="480" width="640" style={{ display: 'none' }} ref={function () {
+                <video id="cam_input" height="480" width="640" ref={function () {
                     window.openCamera()
                 }}></video>
                 <canvas id="canvasOutput"></canvas>
                 <p id="sidesText"></p>
-                <button id="scan" style={{ fontSize: 40 }}>Scan Side</button>
-                <button id="notations" style={{ fontSize: 40 }}>Submit Cube</button>
+                <button id="scan">Scan Side</button>
+                <button id="notations">Submit Cube</button>
             </div>
         )
     }

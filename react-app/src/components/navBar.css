@@ -39,10 +39,7 @@
   height: 100%;
   width: 100%;
   color: #8f8f8f;
-}
-
-.navBarContent .active .navElements {
-  color: #2881f5 !important;
+  transition: color 0.5s;
 }
 
 .desktopDescriptions {
@@ -88,13 +85,12 @@
 
 .navBorder {
   display: none;
-  background-color: #2881f5;
   height: 5px;
   width: 70px;
   position: absolute;
   left: calc(((60px + (25vw - 60px)) * 0) + (12.5vw - 35px));
   bottom: 0;
-  transition: left 0.35s;
+  transition: background-color 0.5s, left 0.35s;
 }
 
 @media screen and (max-width: 768px) {

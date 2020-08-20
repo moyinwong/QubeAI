@@ -1,27 +1,41 @@
 const navBarAnimation = (currentPage) => {
+    const navElements = document.querySelectorAll(".navElements")
+    const activeNavElement = document.querySelector(".navBarContent .active .navElements");
     const navBorder = document.querySelector(".navBorder");
-    let index;
+
+    let colorIndex;
+    let positionIndex;
 
     switch (currentPage) {
         case "welcome":
-            index = 0;
+            colorIndex = '#2881f5';
+            positionIndex = 0;
             break;
         case "scan":
-            index = 1;
+            colorIndex = '#e02b2b';
+            positionIndex = 1;
             break;
         case "virtual":
-            index = 2;
+            colorIndex = '#29c429';
+            positionIndex = 2;
             break;
         case "solve":
-            index = 3;
+            colorIndex = '#e08b2b';
+            positionIndex = 3;
             break;
         default:
-            index = 0;
+            colorIndex = '#2881f5';
+            positionIndex = 0;
             break;
     }
 
-    /* left: calc(((60px + 2 * ((100vw - 240px) / 8)) * index) + ((100vw - 240px) / 8) - 5px); */
-    navBorder.style.left = `calc(((60px + (25vw - 60px)) * ${index}) + (12.5vw - 35px))`;
+    for (let navElement of navElements) {
+        navElement.style.color = "#8f8f8f";
+    }
+    activeNavElement.style.color = colorIndex;
+    navBorder.style.backgroundColor = colorIndex;
+    /* left: calc(((60px + 2 * ((100vw - 240px) / 8)) * positionIndex) + ((100vw - 240px) / 8) - 5px); */
+    navBorder.style.left = `calc(((60px + (25vw - 60px)) * ${positionIndex}) + (12.5vw - 35px))`;
 }
 
 export default navBarAnimation;
