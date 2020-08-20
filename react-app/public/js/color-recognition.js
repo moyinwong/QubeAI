@@ -318,11 +318,14 @@ async function openCamera() {
                 let allNotationsButton = document.getElementById('notations')
                 allNotationsButton.addEventListener('click', () => {
                     allNotations = sides_to_notation(sides)
-                    console.log(allNotations)
+                    // console.log(allNotations)
+                    
                     // src.delete()
                     // dst.delete()
                     // hsv.delete()
                     // hsvCopy.delete()
+
+                    sessionStorage.setItem('allNotations', JSON.stringify(allNotations));
                 })
             }
             // schedule first one.

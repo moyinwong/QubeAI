@@ -14,6 +14,7 @@ class ScanPage extends Component {
     submitClick = async () => {
         const submittedValue = await camera();
         this.props.submitCube(submittedValue);
+        console.log(submittedValue);
     }
     render() {
         return (
