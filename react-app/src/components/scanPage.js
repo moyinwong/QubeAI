@@ -20,6 +20,9 @@ class ScanPage extends Component {
                 <video id="cam_input" height="480" width="640"></video>
                 <canvas id="canvasOutput"></canvas>
                 <p id="sidesText"></p>
+                <button id="scan" style={{fontSize: 40}}>scan</button>
+                <button id="notations" style={{fontSize: 40}}>get all notations</button>
+                <p id="sidesText" style={{fontSize: 40}}></p>
                 <button onClick={this.submitClick}>Submit Cube</button>
             </div>
         )

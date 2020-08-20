@@ -273,17 +273,14 @@ function openCvReady() {
                 let colorName = get_color_name(avgHsv)
                 state[index] = colorName
 
-                window.addEventListener('keydown', function (e) {
-                    if (e.keyCode == 32) {
-                        preview = [...state]
-                        draw_current_stickers(dst, state)
-                        face = color_to_notation(state[4])
-                        // print(face)
-                        // print(state)
-                        sides[face] = [...state]
-                    }
-                });
-
+                //scan button
+                let scanButton = document.getElementById('scan')
+                scanButton.addEventListener('click', () => {
+                    preview = [...state]
+                    draw_current_stickers(dst, state)
+                    face = color_to_notation(state[4])
+                    sides[face] = [...state]
+                })
             }
             draw_preview_stickers(dst, state)
             sidesLength = Object.keys(sides).length
@@ -294,18 +291,20 @@ function openCvReady() {
             // cv.putText(dst, text)
             cv.imshow("canvasOutput", dst);
 
-
             // schedule next one.
             let delay = 1000 / FPS - (Date.now() - begin);
             setTimeout(processVideo, delay);
 
-            // press esc to generate an object that stores all notation
-            window.addEventListener('keydown', function (e) {
-                if (e.keyCode == 27) {
-                    allNotations = sides_to_notation(sides)
-                    console.log(allNotations)
-                }
-            });
+            //get all notations button
+            let allNotationsButton = document.getElementById('notations')
+            allNotationsButton.addEventListener('click', () => {
+                allNotations = sides_to_notation(sides)
+                console.log(allNotations)
+                // src.delete()
+                // dst.delete()
+                // hsv.delete()
+                // hsvCopy.delete()
+            })
         }
         // schedule first one.
         setTimeout(processVideo, 0);

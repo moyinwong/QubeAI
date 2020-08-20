@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opencv JS</title>
-    <script async src="js/opencv.js" onload="openCvReady();"></script>
-    <script src="js/utils.js"></script>
-    <script src="color-recognition.js" type="text/JavaScript"></script>
 </head>
 
 <body>
     <video style="display: none;" id="cam_input" height="480" width="640"></video>
     <canvas id="canvasOutput"></canvas>
+    <button id="scan" style="font-size: 40;">scan</button>
+    <button id="notations" style="font-size: 40;">get all notations</button>
     <p id="sidesText" style="font-size: 40;"></p>
     <p style="font-size: 40;">When finish scanning all faces, press esc to get an object of all notations</p>
-</body>
 
+    <script src="color-recognition.js" type="text/JavaScript"></script></body>
+    <script async src="js/opencv.js" onload="openCvReady();"></script>
+    <script src="js/utils.js"></script>
 
 </html>
