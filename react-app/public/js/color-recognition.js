@@ -195,120 +195,142 @@ function sides_to_notation(sides) {
 }
 
 
+function getVideo() {
+    return new Promise((resolve, reject) => {
+        function check() {
+            let video = document.getElementById("cam_input"); // video is the id of video tag
+            if (video) {
+                resolve(video)
+            } else {
+                setTimeout(check)
+            }
+        }
+        check()
+    }) 
+}
 
-function openCvReady() {
-    cv['onRuntimeInitialized'] = () => {
-        //let browser access webcam
-        let video = document.getElementById("cam_input"); // video is the id of video tag
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(function (stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function (err) {
-                console.log("An error occurred! " + err);
-            });
+async function openCamera() {
+            //let browser access webcam
+            let video = await getVideo()
+            // let video = document.getElementById("cam_input"); // video is the id of video tag
+            async function getWebcam() {
+                let stream = null;
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false})
+                    video.srcObject = stream;
+                    video.play();
+                } catch(err) {
+                    console.log("An error occurred! " + err)
+                }
+            }
+            getWebcam()
 
-        //access webcam frame through opencv
-        let src = new cv.Mat(height, width, cv.CV_8UC4);
-        let dst = new cv.Mat(height, width, cv.CV_8UC1);
-        let hsv = new cv.Mat(height, width, cv.CV_8UC1);
-        let hsvCopy = new cv.Mat(height, width, cv.CV_8UC1)
-        let cap = new cv.VideoCapture(video);
-        
-        //setting fps for delaying the execution of each cv.imshow
-        const FPS = 30;
+            let src = new cv.Mat(height, width, cv.CV_8UC4);
+            let dst = new cv.Mat(height, width, cv.CV_8UC1);
+            let hsv = new cv.Mat(height, width, cv.CV_8UC1);
+            let hsvCopy = new cv.Mat(height, width, cv.CV_8UC1)
+            let cap = new cv.VideoCapture(video);
+            
+            //setting fps for delaying the execution of each cv.imshow
+            const FPS = 30;
+    
+            //initiate a sides object to store all notations in final step
+            let sides = {};
+            function processVideo() {
+                if(!document.getElementById("cam_input")) {
+                    return
+                }
 
-        //initiate a sides object to store all notations in final step
-        let sides = {};
-        function processVideo() {
-            let begin = Date.now();
-
-            //capture each frame from the webcam
-            cap.read(src);
-            src.copyTo(dst);
-
-            //converting original video to HSV for getting hsv value
-            cv.cvtColor(dst, hsv, cv.COLOR_BGR2HSV)
-
-            //draw sticker on copy version of video
-            draw_main_sticker(dst)
-            draw_current_stickers(dst, preview)
-
-            //loop over the 9 stickers/region of interests of the frame
-            for (const [index, coordinate] of sticker.entries()) {
-                let x = coordinate[0]
-                let y = coordinate[1]
-
-                let rect = new cv.Rect(x, y, 32, 32);
-                hsvCopy = hsv.roi(rect)
-
-
-                let h = []
-                let s = []
-                let v = []
-                let row = 32
-                let col = 32
-                for (let i = 0; i < row; i++) {
-                    for (let y = 0; y < col; y++) {
-                        let pixel = hsvCopy.ucharPtr(i, y);
-                        h.push(pixel[0])
-                        s.push(pixel[1])
-                        v.push(pixel[2])
+                let begin = Date.now();
+    
+                //capture each frame from the webcam
+                cap.read(src);
+                src.copyTo(dst);
+    
+                //converting original video to HSV for getting hsv value
+                cv.cvtColor(dst, hsv, cv.COLOR_BGR2HSV)
+    
+                //draw sticker on copy version of video
+                draw_main_sticker(dst)
+                draw_current_stickers(dst, preview)
+    
+                //loop over the 9 stickers/region of interests of the frame
+                for (const [index, coordinate] of sticker.entries()) {
+                    let x = coordinate[0]
+                    let y = coordinate[1]
+    
+                    let rect = new cv.Rect(x, y, 32, 32);
+                    hsvCopy = hsv.roi(rect)
+    
+    
+                    let h = []
+                    let s = []
+                    let v = []
+                    let row = 32
+                    let col = 32
+                    for (let i = 0; i < row; i++) {
+                        for (let y = 0; y < col; y++) {
+                            let pixel = hsvCopy.ucharPtr(i, y);
+                            h.push(pixel[0])
+                            s.push(pixel[1])
+                            v.push(pixel[2])
+                        }
                     }
+    
+                    //getting the hsv value in the shape of a 2D array [[h,s,v], [h,s,v].....]
+                    allPixels = []
+                    for (let i = 0; i < h.length; i++) {
+                        pixels = []
+                        pixels.push(h[i])
+                        pixels.push(s[i])
+                        pixels.push(v[i])
+                        allPixels.push(pixels)
+                    }
+    
+                    //get average hsv
+                    let avgHsv = average_hsv(allPixels)
+                    let colorName = get_color_name(avgHsv)
+                    state[index] = colorName
+    
+                    //scan button
+                    let scanButton = document.getElementById('scan')
+                    scanButton.addEventListener('click', () => {
+                        preview = [...state]
+                        draw_current_stickers(dst, state)
+                        face = color_to_notation(state[4])
+                        sides[face] = [...state]
+                    })
                 }
-
-                //getting the hsv value in the shape of a 2D array [[h,s,v], [h,s,v].....]
-                allPixels = []
-                for (let i = 0; i < h.length; i++) {
-                    pixels = []
-                    pixels.push(h[i])
-                    pixels.push(s[i])
-                    pixels.push(v[i])
-                    allPixels.push(pixels)
-                }
-
-                //get average hsv
-                let avgHsv = average_hsv(allPixels)
-                let colorName = get_color_name(avgHsv)
-                state[index] = colorName
-
-                //scan button
-                let scanButton = document.getElementById('scan')
-                scanButton.addEventListener('click', () => {
-                    preview = [...state]
-                    draw_current_stickers(dst, state)
-                    face = color_to_notation(state[4])
-                    sides[face] = [...state]
+                draw_preview_stickers(dst, state)
+                sidesLength = Object.keys(sides).length
+    
+                sidesText = document.getElementById('sidesText')
+                sidesText.innerHTML = `scanned sides: ${sidesLength}/6`
+    
+                // cv.putText(dst, text)
+                cv.imshow("canvasOutput", dst);
+    
+                // schedule next one.
+                let delay = 1000 / FPS - (Date.now() - begin);
+                setTimeout(processVideo, delay);
+    
+                //get all notations button
+                let allNotationsButton = document.getElementById('notations')
+                allNotationsButton.addEventListener('click', () => {
+                    allNotations = sides_to_notation(sides)
+                    console.log(allNotations)
+                    // src.delete()
+                    // dst.delete()
+                    // hsv.delete()
+                    // hsvCopy.delete()
                 })
             }
-            draw_preview_stickers(dst, state)
-            sidesLength = Object.keys(sides).length
+            // schedule first one.
+            setTimeout(processVideo, 0);
+}
 
-            sidesText = document.getElementById('sidesText')
-            sidesText.innerHTML = `scanned sides: ${sidesLength}/6`
-
-            // cv.putText(dst, text)
-            cv.imshow("canvasOutput", dst);
-
-            // schedule next one.
-            let delay = 1000 / FPS - (Date.now() - begin);
-            setTimeout(processVideo, delay);
-
-            //get all notations button
-            let allNotationsButton = document.getElementById('notations')
-            allNotationsButton.addEventListener('click', () => {
-                allNotations = sides_to_notation(sides)
-                console.log(allNotations)
-                // src.delete()
-                // dst.delete()
-                // hsv.delete()
-                // hsvCopy.delete()
-            })
-        }
-        // schedule first one.
-        setTimeout(processVideo, 0);
-    }
+function openCvReady() {
+    cv['onRuntimeInitialized'] = openCamera
 }
 
 
