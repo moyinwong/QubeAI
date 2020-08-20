@@ -1,29 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import camera from '../functions/camera';
 import navBarAnimation from '../functions/navBarAnimation';
-import { submitCube } from '../actions/submitCube';
+import { changePage } from '../actions/changePage';
 import './scanPage.css';
+// import {openCvReady} from '../functions/openCV/color-recognition'
 
 class ScanPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
-        navBarAnimation(1);
-    }
-    submitClick = async () => {
-        const submittedValue = await camera();
-        this.props.submitCube(submittedValue);
+        navBarAnimation("scan");
+        this.props.changePage("scan");
     }
     render() {
         return (
             <div className="scanPage">
-                <video id="cam_input" height="480" width="640"></video>
+                <video id="cam_input" height="480" width="640" ref={function () {
+                    window.openCamera()
+                }}></video>
                 <canvas id="canvasOutput"></canvas>
                 <p id="sidesText"></p>
-                <button id="scan" style={{fontSize: 40}}>scan</button>
-                <button id="notations" style={{fontSize: 40}}>get all notations</button>
-                <p id="sidesText" style={{fontSize: 40}}></p>
-                <button onClick={this.submitClick}>Submit Cube</button>
+                <button id="scan">Scan Side</button>
+                <button id="notations">Submit Cube</button>
             </div>
         )
     }
@@ -31,13 +28,13 @@ class ScanPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { cubeValue: state.cubeValue };
+    return { currentPage: state.currentPage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitCube: (submittedValue) => {
-            dispatch(submitCube(submittedValue));
+        changePage: (currentPage) => {
+            dispatch(changePage(currentPage));
         }
     }
 }

@@ -1,0 +1,8 @@
+#cam_input {
+    display: none;
+}
+
+#canvasOutput {
+    height: 300px;
+    width: 400px;
+}
