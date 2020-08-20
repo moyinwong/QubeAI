@@ -1,322 +1,3 @@
-const container = document.getElementById("canvas-frame");
-
-let width = window.innerWidth;
-let height = window.innerHeight;
-
-const origPoint = new THREE.Vector3(0, 0, 0);
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-let controller;
-const viewCenter = new THREE.Vector3(0, 0, 0);
-let isRotating = false;
-let intersect;
-let normalize;
-let startPoint;
-let movePoint;
-let initStatus = [];
-const xLine = new THREE.Vector3(1, 0, 0);
-const xLineAd = new THREE.Vector3(-1, 0, 0);
-const yLine = new THREE.Vector3(0, 1, 0);
-const yLineAd = new THREE.Vector3(0, -1, 0);
-const zLine = new THREE.Vector3(0, 0, 1);
-const zLineAd = new THREE.Vector3(0, 0, -1);
-
-//detect if need to request animation frame
-window.requestAnimFrame = (function () {
-  return (
-    window.requestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    window.webkitRequestAnimationFrame
-  );
-})();
-
-//change width / height if resize
-function onWindowResize() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-  renderer.setSize(width, height);
-}
-
-window.addEventListener("resize", onWindowResize, false);
-
-// function initThree() {
-//   width = window.innerWidth;
-//   height = window.innerHeight;
-//   renderer = new THREE.WebGLRenderer({
-//     antialias: true,
-//   });
-//   renderer.setSize(width, height);
-//   renderer.setClearColor(0xffffff, 1.0);
-//   document.getElementById("canvas-frame").appendChild(renderer.domElement);
-// }
-
-const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
-camera.position.set(0, 0, 600);
-camera.up.set(0, 1, 0); //正方向
-camera.lookAt(origPoint);
-
-//创建场景，后续元素需要加入到场景中才会显示出来
-
-const scene = new THREE.Scene();
-
-const light = new THREE.AmbientLight(0xfefefe);
-scene.add(light);
-
-const cubeParams = {
-  x: 0,
-  y: 0,
-  z: 0,
-  len: 50,
-  colors: [
-    ["rgba(255,193,37,1)", "orange"], //orange
-    ["rgba(178,34,34,1)", "red"], //red
-    ["rgba(255,255,0,1)", "yellow"], //yellow
-    ["rgba(255,255,255,1)", "white"], //white
-    ["rgba(50,205,50,1)", "green"], //green
-    ["rgba(0,191,255,1)", "blue"], //blue
-  ],
-};
-
-//for texture
-function faces(rgbaColor) {
-  const canvas = document.createElement("canvas");
-  canvas.width = 256;
-  canvas.height = 256;
-  const context = canvas.getContext("2d");
-  context.fillStyle = "rgba(0,0,0,1)";
-  context.fillRect(0, 0, 256, 256);
-  context.rect(16, 16, 224, 224);
-  context.lineJoin = "round";
-  context.lineWidth = 16;
-  context.fillStyle = rgbaColor;
-  context.strokeStyle = rgbaColor;
-  context.stroke();
-  context.fill();
-  return canvas;
-}
-
-const orangeTexture = new THREE.Texture(faces(cubeParams.colors[0][0]));
-orangeTexture.needsUpdate = true;
-const redTexture = new THREE.Texture(faces(cubeParams.colors[1][0]));
-redTexture.needsUpdate = true;
-const yellowTexture = new THREE.Texture(faces(cubeParams.colors[2][0]));
-yellowTexture.needsUpdate = true;
-const whiteTexture = new THREE.Texture(faces(cubeParams.colors[3][0]));
-whiteTexture.needsUpdate = true;
-const greenTexture = new THREE.Texture(faces(cubeParams.colors[4][0]));
-greenTexture.needsUpdate = true;
-const blueTexture = new THREE.Texture(faces(cubeParams.colors[5][0]));
-blueTexture.needsUpdate = true;
-
-const orangeMaterial = new THREE.MeshLambertMaterial({
-  map: orangeTexture,
-  name: cubeParams.colors[0][1],
-});
-
-const redMaterial = new THREE.MeshLambertMaterial({
-  map: redTexture,
-  name: cubeParams.colors[1][1],
-});
-
-const yellowMaterial = new THREE.MeshLambertMaterial({
-  map: yellowTexture,
-  name: cubeParams.colors[2][1],
-});
-
-const whiteMaterial = new THREE.MeshLambertMaterial({
-  map: whiteTexture,
-  name: cubeParams.colors[3][1],
-});
-
-const greenMaterial = new THREE.MeshLambertMaterial({
-  map: greenTexture,
-  name: cubeParams.colors[4][1],
-});
-
-const blueMaterial = new THREE.MeshLambertMaterial({
-  map: blueTexture,
-  name: cubeParams.colors[5][1],
-});
-
-/*----------------------- need to change by fill in detected color ----------------------*/
-
-//create simple cube
-function simpleCubes(x, y, z, len, colors) {
-  //cube left top Axis
-  const leftUpX = x - (3 / 2) * len;
-  const leftUpY = y + (3 / 2) * len;
-  const leftUpZ = z + (3 / 2) * len;
-
-  //color *all color is same in a faces
-  const materials = [];
-  for (let i = 0; i < colors.length; i++) {
-    const texture = new THREE.Texture(faces(colors[i][0]));
-    texture.needsUpdate = true;
-    const material = new THREE.MeshLambertMaterial({ map: texture });
-    material.name = colors[i][1];
-    materials.push(material);
-    //console.log(materials);
-  }
-
-  const cubes = [];
-
-  //push cubes 3 times @ 9 / times
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3 * 3; j++) {
-      const geometry = new THREE.BoxGeometry(len, len, len);
-      const cube = new THREE.Mesh(geometry, materials);
-
-      cube.position.x = leftUpX + len / 2 + (j % 3) * len;
-      cube.position.y = leftUpY - len / 2 - parseInt(j / 3) * len;
-      cube.position.z = leftUpZ - len / 2 - i * len;
-      //cube.name = "cube" + (i * 1 + j);
-
-      //console.log(cube.position.x, cube.position.y, cube.position.z);
-
-      if (
-        cube.position.x == 0 &&
-        cube.position.y == 0 &&
-        cube.position.z == 50
-      ) {
-        cube.name = "F-Center";
-      }
-
-      if (
-        cube.position.x == 0 &&
-        cube.position.y == 0 &&
-        cube.position.z == -50
-      ) {
-        cube.name = "B-Center";
-      }
-
-      if (
-        cube.position.x == len &&
-        cube.position.y == 0 &&
-        cube.position.z == 0
-      ) {
-        cube.name = "R-Center";
-      }
-
-      if (
-        cube.position.x == -len &&
-        cube.position.y == 0 &&
-        cube.position.z == 0
-      ) {
-        cube.name = "L-Center";
-      }
-
-      if (
-        cube.position.x == 0 &&
-        cube.position.y == len &&
-        cube.position.z == 0
-      ) {
-        cube.name = "U-Center";
-      }
-
-      if (
-        cube.position.x == 0 &&
-        cube.position.y == -len &&
-        cube.position.z == 0
-      ) {
-        cube.name = "D-Center";
-      }
-
-      if (
-        cube.position.x == 0 &&
-        cube.position.y == 0 &&
-        cube.position.z == 0
-      ) {
-        cube.name = "core";
-      }
-
-      cubes.push(cube);
-    }
-  }
-  return cubes;
-}
-
-//create cubes
-let cubes = [];
-function initObject() {
-  cubes = simpleCubes(
-    cubeParams.x,
-    cubeParams.y,
-    cubeParams.z,
-    cubeParams.len,
-    cubeParams.colors
-  );
-  for (let i = 0; i < cubes.length; i++) {
-    const item = cubes[i];
-
-    //update cubeIndex after each move
-    initStatus.push({
-      x: item.position.x,
-      y: item.position.y,
-      z: item.position.z,
-      cubeIndex: item.id,
-    });
-    item.cubeIndex = item.id;
-    scene.add(cubes[i]); //并依次加入到场景中
-  }
-
-  //not visible
-  const cubegeo = new THREE.BoxGeometry(150, 150, 150);
-  let hex = 0x000000;
-  for (let i = 0; i < cubegeo.faces.length; i += 2) {
-    cubegeo.faces[i].color.setHex(hex);
-    cubegeo.faces[i + 1].color.setHex(hex);
-  }
-  const cubemat = new THREE.MeshBasicMaterial({
-    vertexColors: THREE.FaceColors,
-    opacity: 0,
-    transparent: true,
-  });
-  const cube = new THREE.Mesh(cubegeo, cubemat);
-  cube.cubeType = "coverCube";
-  scene.add(cube);
-}
-
-//render
-function render() {
-  renderer.clear();
-  renderer.render(scene, camera);
-  window.requestAnimFrame(render);
-}
-
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-});
-
-//console.log(container.clientWidth);
-
-renderer.setSize(width, height);
-renderer.setClearColor(0xffffff, 1.0);
-document.getElementById("canvas-frame").appendChild(renderer.domElement);
-
-//start
-function threeStart() {
-  document.getElementById("canvas-frame").appendChild(renderer.domElement);
-
-  initObject();
-  render();
-
-  //add EventListener
-  renderer.domElement.addEventListener("mousedown", startCube, false);
-  renderer.domElement.addEventListener("mousemove", moveCube, false);
-  renderer.domElement.addEventListener("mouseup", stopCube, false);
-
-  renderer.domElement.addEventListener("touchstart", startCube, false);
-  renderer.domElement.addEventListener("touchmove", moveCube, false);
-  renderer.domElement.addEventListener("touchend", stopCube, false);
-
-  controller = new THREE.OrbitControls(camera, renderer.domElement);
-  controller.target = new THREE.Vector3(0, 0, 0);
-}
-
 function getDirectionName(direction) {
   switch (direction) {
     //z clockwise
@@ -533,10 +214,18 @@ function rotateAnimation(
     isRotating = false;
     startPoint = null;
     updateCubeIndex(elements);
-
     //enable controller after move
     controller.enabled = true;
     isRotating = false;
+    //updateCubeStatus();
+
+    for (let children of scene.children) {
+      children.verticesNeedUpdate = true;
+      if (children.geometry) {
+        children.geometry.normalsNeedUpdate = true;
+      }
+    }
+    //updateCubeStatus();
   }
 
   //onsole.log(direction);
@@ -655,7 +344,7 @@ function getBoxes(target, direction) {
   targetId = targetId - minId;
   let numI = parseInt(targetId / 9);
   let numJ = targetId % 9;
-  const boxs = [];
+  const boxes = [];
 
   switch (direction) {
     //x
@@ -670,7 +359,7 @@ function getBoxes(target, direction) {
       for (let i = 0; i < cubes.length; i++) {
         let tempId = cubes[i].cubeIndex - minId;
         if (numI === parseInt(tempId / 9)) {
-          boxs.push(cubes[i]);
+          boxes.push(cubes[i]);
         }
       }
       break;
@@ -686,7 +375,7 @@ function getBoxes(target, direction) {
       for (let i = 0; i < cubes.length; i++) {
         let tempId = cubes[i].cubeIndex - minId;
         if (parseInt(numJ / 3) === parseInt((tempId % 9) / 3)) {
-          boxs.push(cubes[i]);
+          boxes.push(cubes[i]);
         }
       }
       break;
@@ -702,7 +391,7 @@ function getBoxes(target, direction) {
       for (let i = 0; i < cubes.length; i++) {
         let tempId = cubes[i].cubeIndex - minId;
         if ((tempId % 9) % 3 === numJ % 3) {
-          boxs.push(cubes[i]);
+          boxes.push(cubes[i]);
         }
       }
       break;
@@ -710,13 +399,13 @@ function getBoxes(target, direction) {
       break;
   }
 
-  for (let box of boxs) {
+  for (let box of boxes) {
     if (box.name == "core") {
       return null;
     }
   }
 
-  return boxs;
+  return boxes;
 }
 
 //to get the direction
@@ -843,24 +532,16 @@ function getIntersects(event) {
   if (event.touches) {
     const touch = event.touches[0];
     mouse.x = (touch.clientX / width) * 2 - 1;
-    mouse.y = -(touch.clientY / height) * 2 + 1;
+    mouse.y = -(touch.clientY / height) * 2 + 1.1;
   } else {
     mouse.x = (event.clientX / width) * 2 - 1;
-    mouse.y = -(event.clientY / height) * 2 + 1;
+    mouse.y = -(event.clientY / height) * 2 + 1.1; //standard 1, adjust for canvas
   }
 
   //Use raycaster to find the first pointed object
   raycaster.setFromCamera(mouse, camera);
 
   let intersects = raycaster.intersectObjects(scene.children);
-
-  boxs = getBoxes(intersects[0], 0.2);
-
-  if (!boxs) return;
-
-  for (let box of boxs) {
-    console.log(box);
-  }
 
   if (intersects.length) {
     try {
@@ -871,19 +552,174 @@ function getIntersects(event) {
         intersect = intersects[0];
         normalize = intersects[1].face.normal;
       }
+
+      //console.log(intersect);
     } catch (err) {
       console.log(err);
     }
   }
 }
 
-threeStart();
+//use index find cube
+function getCubeByCubeIndex(index) {
+  for (let children of scene.children) {
+    if (children.cubeIndex === index) return children;
+  }
+}
 
-//reset
-//setTimeout(threeStart, 5000);
+//update cube status array
+function updateCubeStatus() {
+  try {
+    for (let cube of cubesStatus) {
+      cubeObj = getCubeByCubeIndex(cube.cubeIndex);
+      //   //console.log(cubeObj);
+      //   for (let face of cubeObj.geometry.faces) {
+      //     const updatedFaceNormal = computeNormal(cubeObj, face);
+      //     //console.log(updatedFaceNormal);
+      //     let materialIndex = face.materialIndex;
+      //     let materialName = cubeObj.material[materialIndex].name;
+      //     //console.log(materialName);
+      //     if (Math.round(updatedFaceNormal.y) === 1) {
+      //       //if (cube.cubeIndex === 0) console.log(materialName);
+      //       cube.U = materialName;
+      //     } else if (Math.round(updatedFaceNormal.y) === -1) {
+      //       cube.D = materialName;
+      //     } else if (Math.round(updatedFaceNormal.x) === 1) {
+      //       cube.R = materialName;
+      //     } else if (Math.round(updatedFaceNormal.x) === -1) {
+      //       cube.L = materialName;
+      //     } else if (Math.round(updatedFaceNormal.z) === 1) {
+      //       cube.F = materialName;
+      //     } else if (Math.round(updatedFaceNormal.z) === -1) {
+      //       cube.B = materialName;
+      //     }
+      //     materialName = null;
+      //   }
+      cubeFaceColors = getFaceColorsOfCube(cubeObj);
+      //console.log(cube);
+      for (let side in cubeFaceColors) {
+        cube[side] = cubeFaceColors[side];
+      }
+    }
+    updateFlattedCubeStatus();
+    console.log("updated");
+    return;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-//
-//setTimeout(() => moveCubeByInstruction("L"), 4000);
+//update flatted status -------------------------------------------------------------------------
+function updateFlattedCubeStatus() {
+  //"LB", "LF", "LU", "LD", "DB", "DF", "UB", "UF", "RB", "RF", "RU", "RD"
 
-//
-//setTimeout(() => moveCubeByInstruction("L'"), 6000);
+  flattedCubeStatus.LB.L = getFaceColorsOfCube(getCubeByCubeIndex(21)).L;
+  flattedCubeStatus.LB.B = getFaceColorsOfCube(getCubeByCubeIndex(21)).B;
+  flattedCubeStatus.LF.L = getFaceColorsOfCube(getCubeByCubeIndex(3)).L;
+  flattedCubeStatus.LF.F = getFaceColorsOfCube(getCubeByCubeIndex(3)).F;
+  flattedCubeStatus.LU.L = getFaceColorsOfCube(getCubeByCubeIndex(9)).L;
+  flattedCubeStatus.LU.U = getFaceColorsOfCube(getCubeByCubeIndex(9)).U;
+  flattedCubeStatus.LD.L = getFaceColorsOfCube(getCubeByCubeIndex(15)).L;
+  flattedCubeStatus.LD.D = getFaceColorsOfCube(getCubeByCubeIndex(15)).D;
+  flattedCubeStatus.DB.D = getFaceColorsOfCube(getCubeByCubeIndex(25)).D;
+  flattedCubeStatus.DB.B = getFaceColorsOfCube(getCubeByCubeIndex(25)).B;
+  flattedCubeStatus.DF.D = getFaceColorsOfCube(getCubeByCubeIndex(7)).D;
+  flattedCubeStatus.DF.F = getFaceColorsOfCube(getCubeByCubeIndex(7)).F;
+  flattedCubeStatus.UB.U = getFaceColorsOfCube(getCubeByCubeIndex(19)).U;
+  flattedCubeStatus.UB.B = getFaceColorsOfCube(getCubeByCubeIndex(19)).B;
+  flattedCubeStatus.UF.U = getFaceColorsOfCube(getCubeByCubeIndex(1)).U;
+  flattedCubeStatus.UF.F = getFaceColorsOfCube(getCubeByCubeIndex(1)).F;
+  flattedCubeStatus.RB.R = getFaceColorsOfCube(getCubeByCubeIndex(23)).R;
+  flattedCubeStatus.RB.B = getFaceColorsOfCube(getCubeByCubeIndex(23)).B;
+  flattedCubeStatus.RF.R = getFaceColorsOfCube(getCubeByCubeIndex(5)).R;
+  flattedCubeStatus.RF.F = getFaceColorsOfCube(getCubeByCubeIndex(5)).F;
+  flattedCubeStatus.RU.R = getFaceColorsOfCube(getCubeByCubeIndex(11)).R;
+  flattedCubeStatus.RU.U = getFaceColorsOfCube(getCubeByCubeIndex(11)).U;
+  flattedCubeStatus.RD.R = getFaceColorsOfCube(getCubeByCubeIndex(17)).R;
+  flattedCubeStatus.RD.D = getFaceColorsOfCube(getCubeByCubeIndex(17)).D;
+  //"LDB", "LDF", "LUB", "LUF", "RDB", "RDF", "RUB", "RUF"
+  flattedCubeStatus.LDB.L = getFaceColorsOfCube(getCubeByCubeIndex(24)).L;
+  flattedCubeStatus.LDB.D = getFaceColorsOfCube(getCubeByCubeIndex(24)).D;
+  flattedCubeStatus.LDB.B = getFaceColorsOfCube(getCubeByCubeIndex(24)).B;
+  flattedCubeStatus.LDF.L = getFaceColorsOfCube(getCubeByCubeIndex(6)).L;
+  flattedCubeStatus.LDF.D = getFaceColorsOfCube(getCubeByCubeIndex(6)).D;
+  flattedCubeStatus.LDF.F = getFaceColorsOfCube(getCubeByCubeIndex(6)).F;
+  flattedCubeStatus.LUB.L = getFaceColorsOfCube(getCubeByCubeIndex(18)).L;
+  flattedCubeStatus.LUB.U = getFaceColorsOfCube(getCubeByCubeIndex(18)).U;
+  flattedCubeStatus.LUB.B = getFaceColorsOfCube(getCubeByCubeIndex(18)).B;
+  flattedCubeStatus.LUF.L = getFaceColorsOfCube(getCubeByCubeIndex(0)).L;
+  flattedCubeStatus.LUF.U = getFaceColorsOfCube(getCubeByCubeIndex(0)).U;
+  flattedCubeStatus.LUF.F = getFaceColorsOfCube(getCubeByCubeIndex(0)).F;
+  flattedCubeStatus.RDB.R = getFaceColorsOfCube(getCubeByCubeIndex(26)).R;
+  flattedCubeStatus.RDB.D = getFaceColorsOfCube(getCubeByCubeIndex(26)).D;
+  flattedCubeStatus.RDB.B = getFaceColorsOfCube(getCubeByCubeIndex(26)).B;
+  flattedCubeStatus.RDF.R = getFaceColorsOfCube(getCubeByCubeIndex(8)).R;
+  flattedCubeStatus.RDF.D = getFaceColorsOfCube(getCubeByCubeIndex(8)).D;
+  flattedCubeStatus.RDF.F = getFaceColorsOfCube(getCubeByCubeIndex(8)).F;
+  flattedCubeStatus.RUB.R = getFaceColorsOfCube(getCubeByCubeIndex(20)).R;
+  flattedCubeStatus.RUB.U = getFaceColorsOfCube(getCubeByCubeIndex(20)).U;
+  flattedCubeStatus.RUB.B = getFaceColorsOfCube(getCubeByCubeIndex(20)).B;
+  flattedCubeStatus.RUF.R = getFaceColorsOfCube(getCubeByCubeIndex(2)).R;
+  flattedCubeStatus.RUF.U = getFaceColorsOfCube(getCubeByCubeIndex(2)).U;
+  flattedCubeStatus.RUF.F = getFaceColorsOfCube(getCubeByCubeIndex(2)).F;
+}
+
+function getColorsByFace() {
+  for (let children of scene.children) {
+    if ((children.cubeIndex % 9) / 3 < 1) {
+      //console.log(children);
+      let upFaceIndex;
+      let materialIndex;
+      let materialName;
+      for (let i = 0; i < children.geometry.faces.length; i++) {
+        //console.log(computeNormal(children, children.geometry.faces[i]).y == 1);
+        //console.log(computeNormal(children, children.geometry.faces[i]).y);
+        if (computeNormal(children, children.geometry.faces[i]).y === 1) {
+          upFaceIndex = i;
+          materialIndex = children.geometry.faces[upFaceIndex].materialIndex;
+          materialName = children.material[materialIndex].name;
+          console.log(materialName);
+          console.log(children.material[materialIndex].name);
+          break;
+        } else {
+          upFaceIndex = null;
+        }
+      }
+    }
+  }
+}
+
+//get updated face normal
+function computeNormal(obj, face) {
+  let normal = face.normal.clone();
+  let rotation = obj.rotation;
+  normal.applyEuler(rotation);
+  //console.log(n);
+  return normal;
+}
+
+function getFaceColorsOfCube(cube) {
+  const cubeFaceColors = {};
+  for (let face of cube.geometry.faces) {
+    const updatedFaceNormal = computeNormal(cube, face);
+    //console.log(updatedFaceNormal);
+    let materialIndex = face.materialIndex;
+    let materialName = cube.material[materialIndex].name;
+    //console.log(materialName);
+    if (Math.round(updatedFaceNormal.y) === 1) {
+      cubeFaceColors.U = materialName;
+    } else if (Math.round(updatedFaceNormal.y) === -1) {
+      cubeFaceColors.D = materialName;
+    } else if (Math.round(updatedFaceNormal.x) === 1) {
+      cubeFaceColors.R = materialName;
+    } else if (Math.round(updatedFaceNormal.x) === -1) {
+      cubeFaceColors.L = materialName;
+    } else if (Math.round(updatedFaceNormal.z) === 1) {
+      cubeFaceColors.F = materialName;
+    } else if (Math.round(updatedFaceNormal.z) === -1) {
+      cubeFaceColors.B = materialName;
+    }
+    materialName = null;
+  }
+  return cubeFaceColors;
+}
