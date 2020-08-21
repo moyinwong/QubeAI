@@ -13,7 +13,7 @@ class SolvePage extends Component {
         navBarAnimation("solve");
     }
     solveCube = async () => {
-        if (this.props.currentStage == "Cube submitted") {
+        if (this.props.currentStage === "Cube submitted") {
             const valueToBeSubmitted = getCubeValue();
             const result = await axios.post("/solveCube", valueToBeSubmitted);
             console.log(result.data);

@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import showModalBox from '../functions/showModalBox';
 import './modalBox.css';
 
 class ModalBox extends Component {
+    closeModalBox() {
+        showModalBox();
+    }
     render() {
         return (
             <div className="modalBox">
+                <div className="darkScreen" onClick={this.closeModalBox}></div>
                 <div className="modalBoxContent">
-                    <div className="modalElements" id="modalPleaseScan">
-                        <p className="modalDescriptions">Please scan all the sides before submittion.</p>
-                    </div>
                     <div className="modalElements" id="modalScanSuccessfully">
                         <p className="modalDescriptions">You have submitted the Cube SUCCESSFULLY.  Would you like our A.I. to SOLVE it for you?</p>
                         <Link to={'/solve'}>
                             <button>Yes</button>
                         </Link>
+                    </div>
+                    <div className="modalElements" id="modalPleaseScan">
+                        <p className="modalDescriptions">Please scan all the sides before submittion.</p>
                     </div>
                     <div className="modalElements" id="modalNotSubmitted">
                         <p className="modalDescriptions">You haven't submitted the Cube yet.  Please SCAN or try our VIRTUAL Cube before submittion.</p>
