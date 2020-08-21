@@ -12,6 +12,7 @@ import SolvePage from './components/solvePage';
 
 // Components
 import NavBar from './components/navBar';
+import ModalBox from './components/modalBox';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/solve' component={SolvePage} />
               </Switch>
               <NavBar />
+              <ModalBox />
             </div>
           </div>
         </div>

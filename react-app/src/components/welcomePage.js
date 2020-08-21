@@ -13,10 +13,10 @@ class WelcomePage extends Component {
                 <p>Do you have a Rubik's Cube with you?</p>
                 <div className="btnContainerVer">
                     <Link to={'/transitScan'}>
-                        <button id="yesBtn">Yes</button>
+                        <button>Yes</button>
                     </Link>
                     <Link to={'/transitVirtual'}>
-                        <button id="noBtn">No</button>
+                        <button>No</button>
                     </Link>
                 </div>
             </div>

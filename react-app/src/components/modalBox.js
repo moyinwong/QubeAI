@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './modalBox.css';
 
 class ModalBox extends Component {
@@ -7,35 +7,26 @@ class ModalBox extends Component {
         return (
             <div className="modalBox">
                 <div className="modalBoxContent">
-                    <NavLink to={'/welcome'}>
-                        <div className="navElements">
-                            <div className="icons"><i className="fas fa-home"></i></div>
-                            <div className="desktopDescriptions">Welcome Page</div>
-                            <div className="mobileDescriptions">Welcome</div>
+                    <div className="modalElements" id="modalPleaseScan">
+                        <p className="modalDescriptions">Please scan all the sides before submittion.</p>
+                    </div>
+                    <div className="modalElements" id="modalScanSuccessfully">
+                        <p className="modalDescriptions">You have submitted the Cube SUCCESSFULLY.  Would you like our A.I. to SOLVE it for you?</p>
+                        <Link to={'/solve'}>
+                            <button>Yes</button>
+                        </Link>
+                    </div>
+                    <div className="modalElements" id="modalNotSubmitted">
+                        <p className="modalDescriptions">You haven't submitted the Cube yet.  Please SCAN or try our VIRTUAL Cube before submittion.</p>
+                        <div className="btnContainerHor">
+                            <Link to={'/scan'}>
+                                <button>Scan Cube</button>
+                            </Link>
+                            <Link to={'/virtual'}>
+                                <button>Go Virtual</button>
+                            </Link>
                         </div>
-                    </NavLink>
-                    <NavLink to={'/scan'}>
-                        <div className="navElements">
-                            <div className="icons"><i className="fas fa-camera"></i></div>
-                            <div className="desktopDescriptions">Scan Cube</div>
-                            <div className="mobileDescriptions">Scan</div>
-                        </div>
-                    </NavLink>
-                    <NavLink to={'/virtual'}>
-                        <div className="navElements">
-                            <div className="icons"><i className="fas fa-cubes"></i></div>
-                            <div className="desktopDescriptions">Go Virtual</div>
-                            <div className="mobileDescriptions">Virtual</div>
-                        </div>
-                    </NavLink>
-                    <NavLink to={'/solve'}>
-                        <div className="navElements">
-                            <div className="icons"><i className="fas fa-calculator"></i></div>
-                            <div className="desktopDescriptions">Solve Cube</div>
-                            <div className="mobileDescriptions">Solve</div>
-                        </div>
-                    </NavLink>
-                    <div className="navBorder"></div>
+                    </div>
                 </div>
             </div>
         )

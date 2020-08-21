@@ -1,0 +1,41 @@
+.modalBox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalBoxContent {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.modalElements {
+    display: none;
+}
+
+.modalElements .btnContainerHor button {
+    color: #ffffff;
+}
+
+@media screen and (orientation: landscape) {
+    .modalElements .btnContainerHor {
+        flex-direction: row;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .modalElements .btnContainerHor {
+        flex-direction: column;
+    }
+    .modalElements .btnContainerHor button {
+        margin-bottom: 16px;
+    }
+}
