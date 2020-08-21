@@ -609,59 +609,90 @@ function updateCubeStatus() {
   }
 }
 
+sideFindCubeIndex = {
+  LB: 21,
+  LF: 3,
+  LU: 9,
+  LD: 15,
+  DB: 25,
+  DF: 7,
+  UB: 19,
+  UF: 1,
+  RB: 23,
+  RF: 5,
+  RU: 11,
+  RD: 17,
+  LDB: 24,
+  LDF: 6,
+  LUB: 18,
+  LUF: 0,
+  RDB: 26,
+  RDF: 8,
+  RUB: 20,
+  RUF: 2,
+};
+
 //update flatted status -------------------------------------------------------------------------
 function updateFlattedCubeStatus() {
-  //"LB", "LF", "LU", "LD", "DB", "DF", "UB", "UF", "RB", "RF", "RU", "RD"
+  "LB", "LF", "LU", "LD", "DB", "DF", "UB", "UF", "RB", "RF", "RU", "RD";
+  for (let faces in sideFindCubeIndex) {
+    //e.g. faces: LB
+    for (let i = 0; i < faces.length; i++) {
+      flattedCubeStatus[faces][faces[i]] = getFaceColorsOfCube(
+        getCubeByCubeIndex(sideFindCubeIndex[faces])
+      )[faces[i]];
+    }
+  }
 
-  flattedCubeStatus.LB.L = getFaceColorsOfCube(getCubeByCubeIndex(21)).L;
-  flattedCubeStatus.LB.B = getFaceColorsOfCube(getCubeByCubeIndex(21)).B;
-  flattedCubeStatus.LF.L = getFaceColorsOfCube(getCubeByCubeIndex(3)).L;
-  flattedCubeStatus.LF.F = getFaceColorsOfCube(getCubeByCubeIndex(3)).F;
-  flattedCubeStatus.LU.L = getFaceColorsOfCube(getCubeByCubeIndex(9)).L;
-  flattedCubeStatus.LU.U = getFaceColorsOfCube(getCubeByCubeIndex(9)).U;
-  flattedCubeStatus.LD.L = getFaceColorsOfCube(getCubeByCubeIndex(15)).L;
-  flattedCubeStatus.LD.D = getFaceColorsOfCube(getCubeByCubeIndex(15)).D;
-  flattedCubeStatus.DB.D = getFaceColorsOfCube(getCubeByCubeIndex(25)).D;
-  flattedCubeStatus.DB.B = getFaceColorsOfCube(getCubeByCubeIndex(25)).B;
-  flattedCubeStatus.DF.D = getFaceColorsOfCube(getCubeByCubeIndex(7)).D;
-  flattedCubeStatus.DF.F = getFaceColorsOfCube(getCubeByCubeIndex(7)).F;
-  flattedCubeStatus.UB.U = getFaceColorsOfCube(getCubeByCubeIndex(19)).U;
-  flattedCubeStatus.UB.B = getFaceColorsOfCube(getCubeByCubeIndex(19)).B;
-  flattedCubeStatus.UF.U = getFaceColorsOfCube(getCubeByCubeIndex(1)).U;
-  flattedCubeStatus.UF.F = getFaceColorsOfCube(getCubeByCubeIndex(1)).F;
-  flattedCubeStatus.RB.R = getFaceColorsOfCube(getCubeByCubeIndex(23)).R;
-  flattedCubeStatus.RB.B = getFaceColorsOfCube(getCubeByCubeIndex(23)).B;
-  flattedCubeStatus.RF.R = getFaceColorsOfCube(getCubeByCubeIndex(5)).R;
-  flattedCubeStatus.RF.F = getFaceColorsOfCube(getCubeByCubeIndex(5)).F;
-  flattedCubeStatus.RU.R = getFaceColorsOfCube(getCubeByCubeIndex(11)).R;
-  flattedCubeStatus.RU.U = getFaceColorsOfCube(getCubeByCubeIndex(11)).U;
-  flattedCubeStatus.RD.R = getFaceColorsOfCube(getCubeByCubeIndex(17)).R;
-  flattedCubeStatus.RD.D = getFaceColorsOfCube(getCubeByCubeIndex(17)).D;
-  //"LDB", "LDF", "LUB", "LUF", "RDB", "RDF", "RUB", "RUF"
-  flattedCubeStatus.LDB.L = getFaceColorsOfCube(getCubeByCubeIndex(24)).L;
-  flattedCubeStatus.LDB.D = getFaceColorsOfCube(getCubeByCubeIndex(24)).D;
-  flattedCubeStatus.LDB.B = getFaceColorsOfCube(getCubeByCubeIndex(24)).B;
-  flattedCubeStatus.LDF.L = getFaceColorsOfCube(getCubeByCubeIndex(6)).L;
-  flattedCubeStatus.LDF.D = getFaceColorsOfCube(getCubeByCubeIndex(6)).D;
-  flattedCubeStatus.LDF.F = getFaceColorsOfCube(getCubeByCubeIndex(6)).F;
-  flattedCubeStatus.LUB.L = getFaceColorsOfCube(getCubeByCubeIndex(18)).L;
-  flattedCubeStatus.LUB.U = getFaceColorsOfCube(getCubeByCubeIndex(18)).U;
-  flattedCubeStatus.LUB.B = getFaceColorsOfCube(getCubeByCubeIndex(18)).B;
-  flattedCubeStatus.LUF.L = getFaceColorsOfCube(getCubeByCubeIndex(0)).L;
-  flattedCubeStatus.LUF.U = getFaceColorsOfCube(getCubeByCubeIndex(0)).U;
-  flattedCubeStatus.LUF.F = getFaceColorsOfCube(getCubeByCubeIndex(0)).F;
-  flattedCubeStatus.RDB.R = getFaceColorsOfCube(getCubeByCubeIndex(26)).R;
-  flattedCubeStatus.RDB.D = getFaceColorsOfCube(getCubeByCubeIndex(26)).D;
-  flattedCubeStatus.RDB.B = getFaceColorsOfCube(getCubeByCubeIndex(26)).B;
-  flattedCubeStatus.RDF.R = getFaceColorsOfCube(getCubeByCubeIndex(8)).R;
-  flattedCubeStatus.RDF.D = getFaceColorsOfCube(getCubeByCubeIndex(8)).D;
-  flattedCubeStatus.RDF.F = getFaceColorsOfCube(getCubeByCubeIndex(8)).F;
-  flattedCubeStatus.RUB.R = getFaceColorsOfCube(getCubeByCubeIndex(20)).R;
-  flattedCubeStatus.RUB.U = getFaceColorsOfCube(getCubeByCubeIndex(20)).U;
-  flattedCubeStatus.RUB.B = getFaceColorsOfCube(getCubeByCubeIndex(20)).B;
-  flattedCubeStatus.RUF.R = getFaceColorsOfCube(getCubeByCubeIndex(2)).R;
-  flattedCubeStatus.RUF.U = getFaceColorsOfCube(getCubeByCubeIndex(2)).U;
-  flattedCubeStatus.RUF.F = getFaceColorsOfCube(getCubeByCubeIndex(2)).F;
+  // flattedCubeStatus.LB.L = getFaceColorsOfCube(getCubeByCubeIndex(21)).L;
+  // flattedCubeStatus.LB.B = getFaceColorsOfCube(getCubeByCubeIndex(21)).B;
+  // flattedCubeStatus.LF.L = getFaceColorsOfCube(getCubeByCubeIndex(3)).L;
+  // flattedCubeStatus.LF.F = getFaceColorsOfCube(getCubeByCubeIndex(3)).F;
+  // flattedCubeStatus.LU.L = getFaceColorsOfCube(getCubeByCubeIndex(9)).L;
+  // flattedCubeStatus.LU.U = getFaceColorsOfCube(getCubeByCubeIndex(9)).U;
+  // flattedCubeStatus.LD.L = getFaceColorsOfCube(getCubeByCubeIndex(15)).L;
+  // flattedCubeStatus.LD.D = getFaceColorsOfCube(getCubeByCubeIndex(15)).D;
+  // flattedCubeStatus.DB.D = getFaceColorsOfCube(getCubeByCubeIndex(25)).D;
+  // flattedCubeStatus.DB.B = getFaceColorsOfCube(getCubeByCubeIndex(25)).B;
+  // flattedCubeStatus.DF.D = getFaceColorsOfCube(getCubeByCubeIndex(7)).D;
+  // flattedCubeStatus.DF.F = getFaceColorsOfCube(getCubeByCubeIndex(7)).F;
+  // flattedCubeStatus.UB.U = getFaceColorsOfCube(getCubeByCubeIndex(19)).U;
+  // flattedCubeStatus.UB.B = getFaceColorsOfCube(getCubeByCubeIndex(19)).B;
+  // flattedCubeStatus.UF.U = getFaceColorsOfCube(getCubeByCubeIndex(1)).U;
+  // flattedCubeStatus.UF.F = getFaceColorsOfCube(getCubeByCubeIndex(1)).F;
+  // flattedCubeStatus.RB.R = getFaceColorsOfCube(getCubeByCubeIndex(23)).R;
+  // flattedCubeStatus.RB.B = getFaceColorsOfCube(getCubeByCubeIndex(23)).B;
+  // flattedCubeStatus.RF.R = getFaceColorsOfCube(getCubeByCubeIndex(5)).R;
+  // flattedCubeStatus.RF.F = getFaceColorsOfCube(getCubeByCubeIndex(5)).F;
+  // flattedCubeStatus.RU.R = getFaceColorsOfCube(getCubeByCubeIndex(11)).R;
+  // flattedCubeStatus.RU.U = getFaceColorsOfCube(getCubeByCubeIndex(11)).U;
+  // flattedCubeStatus.RD.R = getFaceColorsOfCube(getCubeByCubeIndex(17)).R;
+  // flattedCubeStatus.RD.D = getFaceColorsOfCube(getCubeByCubeIndex(17)).D;
+  // "LDB", "LDF", "LUB", "LUF", "RDB", "RDF", "RUB", "RUF";
+  // flattedCubeStatus.LDB.L = getFaceColorsOfCube(getCubeByCubeIndex(24)).L;
+  // flattedCubeStatus.LDB.D = getFaceColorsOfCube(getCubeByCubeIndex(24)).D;
+  // flattedCubeStatus.LDB.B = getFaceColorsOfCube(getCubeByCubeIndex(24)).B;
+  // flattedCubeStatus.LDF.L = getFaceColorsOfCube(getCubeByCubeIndex(6)).L;
+  // flattedCubeStatus.LDF.D = getFaceColorsOfCube(getCubeByCubeIndex(6)).D;
+  // flattedCubeStatus.LDF.F = getFaceColorsOfCube(getCubeByCubeIndex(6)).F;
+  // flattedCubeStatus.LUB.L = getFaceColorsOfCube(getCubeByCubeIndex(18)).L;
+  // flattedCubeStatus.LUB.U = getFaceColorsOfCube(getCubeByCubeIndex(18)).U;
+  // flattedCubeStatus.LUB.B = getFaceColorsOfCube(getCubeByCubeIndex(18)).B;
+  // flattedCubeStatus.LUF.L = getFaceColorsOfCube(getCubeByCubeIndex(0)).L;
+  // flattedCubeStatus.LUF.U = getFaceColorsOfCube(getCubeByCubeIndex(0)).U;
+  // flattedCubeStatus.LUF.F = getFaceColorsOfCube(getCubeByCubeIndex(0)).F;
+  // flattedCubeStatus.RDB.R = getFaceColorsOfCube(getCubeByCubeIndex(26)).R;
+  // flattedCubeStatus.RDB.D = getFaceColorsOfCube(getCubeByCubeIndex(26)).D;
+  // flattedCubeStatus.RDB.B = getFaceColorsOfCube(getCubeByCubeIndex(26)).B;
+  // flattedCubeStatus.RDF.R = getFaceColorsOfCube(getCubeByCubeIndex(8)).R;
+  // flattedCubeStatus.RDF.D = getFaceColorsOfCube(getCubeByCubeIndex(8)).D;
+  // flattedCubeStatus.RDF.F = getFaceColorsOfCube(getCubeByCubeIndex(8)).F;
+  // flattedCubeStatus.RUB.R = getFaceColorsOfCube(getCubeByCubeIndex(20)).R;
+  // flattedCubeStatus.RUB.U = getFaceColorsOfCube(getCubeByCubeIndex(20)).U;
+  // flattedCubeStatus.RUB.B = getFaceColorsOfCube(getCubeByCubeIndex(20)).B;
+  // flattedCubeStatus.RUF.R = getFaceColorsOfCube(getCubeByCubeIndex(2)).R;
+  // flattedCubeStatus.RUF.U = getFaceColorsOfCube(getCubeByCubeIndex(2)).U;
+  // flattedCubeStatus.RUF.F = getFaceColorsOfCube(getCubeByCubeIndex(2)).F;
 }
 
 function getColorsByFace() {
@@ -722,4 +753,38 @@ function getFaceColorsOfCube(cube) {
     materialName = null;
   }
   return cubeFaceColors;
+}
+
+function fillInColorsToCubes(dataset) {
+  try {
+    sides = { R: 0, L: 1, U: 2, D: 3, F: 4, B: 5 };
+    materials = {
+      red: redMaterial,
+      orange: orangeMaterial,
+      yellow: yellowMaterial,
+      white: whiteMaterial,
+      green: greenMaterial,
+      blue: blueMaterial,
+    };
+
+    for (let faces in sideFindCubeIndex) {
+      //eg faces : LB
+      for (let i = 0; i < faces.length; i++) {
+        cubeIndex = sideFindCubeIndex[faces];
+        console.log(faces);
+        console.log("cubeIndex: ", cubeIndex);
+        sideIndex = sides[faces[i]];
+        console.log("face :", faces[i]);
+        console.log("sideIndex :", sideIndex);
+        console.log("dataset faces: ", dataset[faces]);
+        colorNeedToFill = dataset[faces][i];
+        console.log("colorNeedToFill :", colorNeedToFill);
+        colorMaterial = materials[colorNeedToFill];
+        getCubeByCubeIndex(cubeIndex).material[sideIndex] = colorMaterial;
+      }
+    }
+    console.log("filled");
+  } catch (err) {
+    console.log(err);
+  }
 }

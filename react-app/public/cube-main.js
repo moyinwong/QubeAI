@@ -378,4 +378,35 @@ threeStart();
 
 updateFlattedCubeStatus();
 
-//getCubeByCubeIndex(0).material[2].map = redTexture;
+//getCubeByCubeIndex(0).material[4] = redMaterial;
+
+const testData = {
+  L: "red",
+  R: "orange",
+  U: "yellow",
+  D: "white",
+  F: "green",
+  B: "blue",
+  LB: ["red", "blue"],
+  LF: ["red", "green"],
+  LU: ["red", "yellow"],
+  LD: ["red", "white"],
+  DB: ["white", "blue"],
+  DF: ["white", "green"],
+  UB: ["orange", "yellow"],
+  UF: ["yellow", "blue"],
+  RB: ["orange", "blue"],
+  RF: ["orange", "green"],
+  RU: ["yellow", "green"],
+  RD: ["orange", "white"],
+  LDB: ["red", "white", "blue"],
+  LDF: ["red", "white", "green"],
+  LUB: ["yellow", "green", "orange"],
+  LUF: ["yellow", "red", "blue"],
+  RDB: ["orange", "white", "blue"],
+  RDF: ["orange", "white", "green"],
+  RUB: ["yellow", "blue", "orange"],
+  RUF: ["yellow", "red", "green"],
+};
+
+console.log(JSON.stringify(flattedCubeStatus));
