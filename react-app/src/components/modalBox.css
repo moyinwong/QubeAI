@@ -1,5 +1,8 @@
 .modalBox {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -22,12 +25,28 @@
     justify-content: center;
     align-items: center;
     color: #000000;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.9);
     z-index: 1;
+    max-height: 600px;
+    max-width: 600px;
+    height: 40vh;
+    width: 80vw;
+    border-radius: 20px;
+    padding: 10px 25px;
 }
 
 .modalElements {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.modalElements .btnContainerHor {
+    display: flex;
+    width: 100%;
 }
 
 .modalElements .btnContainerHor button {
@@ -37,12 +56,18 @@
 @media screen and (orientation: landscape) {
     .modalElements .btnContainerHor {
         flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 30px;
     }
 }
 
 @media screen and (orientation: portrait) {
     .modalElements .btnContainerHor {
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15px;
     }
     .modalElements .btnContainerHor button {
         margin-bottom: 16px;
