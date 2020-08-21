@@ -116,7 +116,7 @@ function get_color_name(hsv) {
     // """
     let h, s, v
     [h, s, v] = hsv
-    if (s <= 30) {
+    if (s <= 48) {
         return 'white'
     }
     else if (h >= 120) {
@@ -291,7 +291,9 @@ async function openCamera() {
                     let avgHsv = average_hsv(allPixels)
                     let colorName = get_color_name(avgHsv)
                     state[index] = colorName
-    
+                    // if (index == 1) {
+                    //     console.log(avgHsv)
+                    // }
                     //scan button
                     let scanButton = document.getElementById('scan')
                     scanButton.addEventListener('click', () => {

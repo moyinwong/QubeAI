@@ -19,7 +19,7 @@ class ModalBox extends Component {
                         </Link>
                     </div>
                     <div className="modalElements" id="modalPleaseScan">
-                        <p className="modalDescriptions">Please scan all the sides before submittion.</p>
+                        <p className="modalDescriptions">Please scan all the sides before submission.</p>
                     </div>
                     <div className="modalElements" id="modalNotSubmitted">
                         <p className="modalDescriptions">You haven't submitted the Cube yet.  Please SCAN or try our VIRTUAL Cube before submittion.</p>

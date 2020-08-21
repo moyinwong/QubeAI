@@ -200,14 +200,26 @@ function openCvReady() {
     cv['onRuntimeInitialized'] = () => {
         //let browser access webcam
         let video = document.getElementById("cam_input"); // video is the id of video tag
-        navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(function (stream) {
+        async function getWebcam() {
+            let stream = null;
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false})
                 video.srcObject = stream;
                 video.play();
-            })
-            .catch(function (err) {
-                console.log("An error occurred! " + err);
-            });
+            } catch(err) {
+                console.log("An error occurred! " + err)
+            }
+        }
+        getWebcam()
+        // let video = document.getElementById("cam_input"); // video is the id of video tag
+        // navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        //     .then(function (stream) {
+        //         video.srcObject = stream;
+        //         video.play();
+        //     })
+        //     .catch(function (err) {
+        //         console.log("An error occurred! " + err);
+        //     });
 
         //access webcam frame through opencv
         let src = new cv.Mat(height, width, cv.CV_8UC4);
