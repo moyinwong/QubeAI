@@ -1,14 +1,14 @@
 const initState = {
-    currentPage: "welcome"
+    currentState: "Nothing sunmitted"
 }
 
 const rootReducer = (state = initState, action) => {
     console.log(state);
     console.log(action);
-    if (action.type === 'CHANGE_PAGE') {
+    if (action.type === 'CHANGE_STATE') {
         return {
             ...state,
-            currentPage: action.currentPage
+            currentState: action.currentState
         };
     }
     return state;

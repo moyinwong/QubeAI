@@ -7,3 +7,18 @@
     height: 100%;
     width: 100vw;
 }
+
+.welcomePage p {
+    margin-bottom: 10px;
+}
+
+.welcomePage .btnContainerVer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcomePage .btnContainerVer button {
+    margin-top: 16px;
+}

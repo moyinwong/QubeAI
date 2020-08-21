@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
 import virtualModel from '../functions/virtualModel';
-import { changePage } from '../actions/changePage';
+import { changeStage} from '../actions/changeState';
 import './virtualPage.css';
 
 class VirtualPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation("virtual");
-        this.props.changePage("virtual");
     }
     render() {
         return (
             <div className="virtualPage">
                 <p>Virtual Page</p>
                 <div className="canvas" id="canvas">Canvas</div>
-                <button>Submit Cube</button>
+                <div className="btnContainerVer">
+                    <button>Submit Cube</button>
+                </div>
             </div>
         )
     }
@@ -24,13 +25,13 @@ class VirtualPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { currentPage: state.currentPage };
+    return { currentStage: state.currentStage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changePage: (currentPage) => {
-            dispatch(changePage(currentPage));
+        changeStage: (currentStage) => {
+            dispatch(changeStage(currentStage));
         }
     }
 }

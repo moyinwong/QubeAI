@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './navBar.css';
+import './modalBox.css';
 
-class NavBar extends Component {
+class ModalBox extends Component {
     render() {
         return (
-            <div className="navBar">
-                <div className="navBarContent">
+            <div className="modalBox">
+                <div className="modalBoxContent">
                     <NavLink to={'/welcome'}>
                         <div className="navElements">
                             <div className="icons"><i className="fas fa-home"></i></div>
@@ -42,4 +42,4 @@ class NavBar extends Component {
     }
 }
 
-export default NavBar;
+export default ModalBox;

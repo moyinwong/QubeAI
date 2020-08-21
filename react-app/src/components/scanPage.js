@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
-import { changePage } from '../actions/changePage';
+import { changeStage } from '../actions/changeState';
 import './scanPage.css';
 // import {openCvReady} from '../functions/openCV/color-recognition'
 
@@ -9,7 +9,6 @@ class ScanPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation("scan");
-        this.props.changePage("scan");
     }
     render() {
         return (
@@ -18,9 +17,13 @@ class ScanPage extends Component {
                     window.openCamera()
                 }}></video>
                 <canvas id="canvasOutput"></canvas>
-                <p id="sidesText"></p>
-                <button id="scan">Scan Side</button>
-                <button id="notations">Submit Cube</button>
+                <div className="highLightedText">
+                    <p id="sidesText"></p>
+                </div>
+                <div className="btnContainerHor">
+                    <button id="scan">Scan Side</button>
+                    <button id="notations">Submit Cube</button>
+                </div>
             </div>
         )
     }
@@ -28,13 +31,13 @@ class ScanPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { currentPage: state.currentPage };
+    return { currentStage: state.currentStage };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changePage: (currentPage) => {
-            dispatch(changePage(currentPage));
+        changeStage: (currentStage) => {
+            dispatch(changeStage(currentStage));
         }
     }
 }
