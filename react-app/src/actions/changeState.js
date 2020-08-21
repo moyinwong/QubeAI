@@ -1,6 +1,6 @@
-export const changeStage = (currentStage) => {
+export const changeState = (currentState) => {
     return {
-        type: 'CHANGE_STAGE',
-        currentStage: currentStage
+        type: 'CHANGE_STATE',
+        currentState: currentState
     }
 }

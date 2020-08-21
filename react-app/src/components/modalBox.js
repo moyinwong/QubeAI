@@ -4,8 +4,8 @@ import showModalBox from '../functions/showModalBox';
 import './modalBox.css';
 
 class ModalBox extends Component {
-    closeModalBox() {
-        showModalBox();
+    closeModalBox = () => {
+        showModalBox("none");
     }
     render() {
         return (
@@ -14,7 +14,7 @@ class ModalBox extends Component {
                 <div className="modalBoxContent">
                     <div className="modalElements" id="modalScanSuccessfully">
                         <p className="modalDescriptions">You have submitted the Cube SUCCESSFULLY.  Would you like our A.I. to SOLVE it for you?</p>
-                        <Link to={'/solve'}>
+                        <Link to={'/solve'} onClick={this.closeModalBox}>
                             <button>Yes</button>
                         </Link>
                     </div>
@@ -24,10 +24,10 @@ class ModalBox extends Component {
                     <div className="modalElements" id="modalNotSubmitted">
                         <p className="modalDescriptions">You haven't submitted the Cube yet.  Please SCAN or try our VIRTUAL Cube before submittion.</p>
                         <div className="btnContainerHor">
-                            <Link to={'/scan'}>
+                            <Link to={'/scan'} onClick={this.closeModalBox}>
                                 <button>Scan Cube</button>
                             </Link>
-                            <Link to={'/virtual'}>
+                            <Link to={'/virtual'} onClick={this.closeModalBox}>
                                 <button>Go Virtual</button>
                             </Link>
                         </div>

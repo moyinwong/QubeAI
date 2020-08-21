@@ -4,7 +4,7 @@ import axios from 'axios';
 import navBarAnimation from '../functions/navBarAnimation';
 import showModalBox from '../functions/showModalBox';
 import getCubeValue from '../functions/getCubeValue';
-import { changeStage } from '../actions/changeState';
+import { changeState } from '../actions/changeState';
 import './solvePage.css';
 
 class SolvePage extends Component {
@@ -13,7 +13,7 @@ class SolvePage extends Component {
         navBarAnimation("solve");
     }
     solveCube = async () => {
-        if (this.props.currentStage === "Cube submitted") {
+        if (this.props.currentState === "Cube submitted") {
             const valueToBeSubmitted = getCubeValue();
             const result = await axios.post("/solveCube", valueToBeSubmitted);
             console.log(result.data);
@@ -32,13 +32,13 @@ class SolvePage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { currentStage: state.currentStage };
+    return { currentState: state.currentState };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeStage: (currentStage) => {
-            dispatch(changeStage(currentStage));
+        changeState: (currentState) => {
+            dispatch(changeState(currentState));
         }
     }
 }

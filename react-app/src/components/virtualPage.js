@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
 import virtualModel from '../functions/virtualModel';
-import { changeStage} from '../actions/changeState';
+import { changeState} from '../actions/changeState';
 import './virtualPage.css';
 
 class VirtualPage extends Component {
@@ -25,13 +25,13 @@ class VirtualPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { currentStage: state.currentStage };
+    return { currentState: state.currentState };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeStage: (currentStage) => {
-            dispatch(changeStage(currentStage));
+        changeState: (currentState) => {
+            dispatch(changeState(currentState));
         }
     }
 }

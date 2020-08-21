@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
 import showModalBox from '../functions/showModalBox';
-import { changeStage } from '../actions/changeState';
+import { changeState } from '../actions/changeState';
 import './scanPage.css';
 
 class ScanPage extends Component {
@@ -10,11 +10,11 @@ class ScanPage extends Component {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation("scan");
     }
-    submitCube() {
+    submitCube = () => {
         const sidesText = document.querySelector('#sidesText');
         if (sidesText.innerHTML === "scanned sides: 1/6") {
-            // this.props.changeStage("Cube submitted");
-            console.log(this.props.currentStage);
+            this.props.changeState("Cube submitted");
+            console.log(this.props.currentState);
             showModalBox("scanSuccessfully");
         } else {
             showModalBox("pleaseScan");
@@ -41,13 +41,13 @@ class ScanPage extends Component {
 
 // Connect to Redux Store
 const mapStateToProps = (state) => {
-    return { currentStage: state.currentStage };
+    return { currentState: state.currentState };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeStage: (currentStage) => {
-            dispatch(changeStage(currentStage));
+        changeState: (currentState) => {
+            dispatch(changeState(currentState));
         }
     }
 }
