@@ -50,8 +50,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/solveCube', async (req: Request, res: Response) => {
 
     console.log(req.body);
+    // To python
     const result = `Connected to Express suscessfully.`;
 
+    // Res to React
     if (req.session) {
         res.json(result);
     }
