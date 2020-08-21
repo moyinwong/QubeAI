@@ -531,11 +531,11 @@ function startCube(event) {
 function getIntersects(event) {
   if (event.touches) {
     const touch = event.touches[0];
-    mouse.x = (touch.clientX / width) * 2 - 1;
-    mouse.y = -(touch.clientY / height) * 2 + 1.1;
+    mouse.x = (touch.clientX / canvasWidth) * 2 - 1;
+    mouse.y = -(touch.clientY / canvasHeight) * 2 + 1.1;
   } else {
-    mouse.x = (event.clientX / width) * 2 - 1;
-    mouse.y = -(event.clientY / height) * 2 + 1.1; //standard 1, adjust for canvas
+    mouse.x = (event.clientX / canvasWidth) * 2 - 1;
+    mouse.y = -(event.clientY / canvasHeight) * 2 + 1.1; //standard 1, adjust for canvas
   }
 
   //Use raycaster to find the first pointed object
