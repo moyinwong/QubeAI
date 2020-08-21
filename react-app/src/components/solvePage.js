@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import navBarAnimation from '../functions/navBarAnimation';
+import showModalBox from '../functions/showModalBox';
 import getCubeValue from '../functions/getCubeValue';
 import { changeStage } from '../actions/changeState';
 import './solvePage.css';
@@ -12,9 +13,13 @@ class SolvePage extends Component {
         navBarAnimation("solve");
     }
     solveCube = async () => {
-        const valueToBeSubmitted = getCubeValue();
-        const result = await axios.post("/solveCube", valueToBeSubmitted);
-        console.log(result.data);
+        if (this.props.currentStage == "Cube submitted") {
+            const valueToBeSubmitted = getCubeValue();
+            const result = await axios.post("/solveCube", valueToBeSubmitted);
+            console.log(result.data);
+        } else {
+            showModalBox("notSubmitted");
+        }
     }
     render() {
         return (

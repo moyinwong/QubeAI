@@ -1,14 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import navBarAnimation from '../functions/navBarAnimation';
+import showModalBox from '../functions/showModalBox';
 import { changeStage } from '../actions/changeState';
 import './scanPage.css';
-// import {openCvReady} from '../functions/openCV/color-recognition'
 
 class ScanPage extends Component {
     componentDidMount() {
         document.querySelector('.navBar').classList.remove('navBarHidden');
         navBarAnimation("scan");
+    }
+    submitCube() {
+        const sidesText = document.querySelector('#sidesText');
+        if (sidesText.innerHTML == "scanned sides: 6/6") {
+            this.props.changeStage("Cube submitted");
+            showModalBox("scanSuccessfully");
+        } else {
+            showModalBox("pleaseScan");
+        }
     }
     render() {
         return (
@@ -22,7 +31,7 @@ class ScanPage extends Component {
                 </div>
                 <div className="btnContainerHor">
                     <button id="scan">Scan Side</button>
-                    <button id="notations">Submit Cube</button>
+                    <button id="notations" onClick={this.submitCube}>Submit Cube</button>
                 </div>
             </div>
         )
