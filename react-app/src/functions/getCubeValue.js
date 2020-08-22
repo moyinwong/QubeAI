@@ -1,9 +1,13 @@
 const getCubeValue = () => {
-    
-    // Return the colors of each of the sides of the cube.
+  // Return the colors of each of the sides of the cube.
 
-    const allNotations = JSON.parse(sessionStorage.getItem('allNotations'));
-    return (allNotations);
-}
+  const cubeStatusNeededToSolve = JSON.parse(
+    sessionStorage.getItem("cubeStatusNeededToSolve")
+  );
+
+  console.log(cubeStatusNeededToSolve);
+
+  return cubeStatusNeededToSolve;
+};
 
 export default getCubeValue;
