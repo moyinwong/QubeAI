@@ -347,23 +347,24 @@ renderer.setClearColor(0x000000, 0); // the default
 
 function getCanvas() {
   return new Promise((resolve, reject) => {
-      function check() {
-        const container = document.getElementById("canvasVirtual");
-          if (container) {
-              resolve(container)
-          } else {
-              setTimeout(check)
-          }
+    function check() {
+      const container = document.getElementById("canvasVirtual");
+      if (container) {
+        resolve(container);
+      } else {
+        setTimeout(check);
       }
-      check()
-  }) 
+    }
+    check();
+  });
 }
 //start-------------------------------------------------------------------------------------------------------------------
 async function threeStart() {
-  let container = await getCanvas()
+  let container = await getCanvas();
   container.appendChild(renderer.domElement);
 
   if (getCubeByCubeIndex(0)) {
+    updateCubeStatus();
     return "Already Rendered";
   }
 
@@ -387,6 +388,7 @@ async function threeStart() {
   if (allNotations) {
     fillInColorsToCubes(allNotations);
   }
+  updateCubeStatus();
 }
 
 threeStart();

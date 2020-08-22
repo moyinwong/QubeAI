@@ -532,10 +532,10 @@ function getIntersects(event) {
   if (event.touches) {
     const touch = event.touches[0];
     mouse.x = (touch.clientX / canvasWidth) * 2 - 1;
-    mouse.y = -(touch.clientY / canvasHeight) * 2 + 1.1;
+    mouse.y = -(touch.clientY / canvasHeight) * 2 + 1;
   } else {
     mouse.x = (event.clientX / canvasWidth) * 2 - 1;
-    mouse.y = -(event.clientY / canvasHeight) * 2 + 1.1; //standard 1, adjust for canvas
+    mouse.y = -(event.clientY / canvasHeight) * 2 + 1; //standard 1, adjust for canvas
   }
 
   //Use raycaster to find the first pointed object
@@ -572,29 +572,6 @@ function updateCubeStatus() {
   try {
     for (let cube of cubesStatus) {
       cubeObj = getCubeByCubeIndex(cube.cubeIndex);
-      //   //console.log(cubeObj);
-      //   for (let face of cubeObj.geometry.faces) {
-      //     const updatedFaceNormal = computeNormal(cubeObj, face);
-      //     //console.log(updatedFaceNormal);
-      //     let materialIndex = face.materialIndex;
-      //     let materialName = cubeObj.material[materialIndex].name;
-      //     //console.log(materialName);
-      //     if (Math.round(updatedFaceNormal.y) === 1) {
-      //       //if (cube.cubeIndex === 0) console.log(materialName);
-      //       cube.U = materialName;
-      //     } else if (Math.round(updatedFaceNormal.y) === -1) {
-      //       cube.D = materialName;
-      //     } else if (Math.round(updatedFaceNormal.x) === 1) {
-      //       cube.R = materialName;
-      //     } else if (Math.round(updatedFaceNormal.x) === -1) {
-      //       cube.L = materialName;
-      //     } else if (Math.round(updatedFaceNormal.z) === 1) {
-      //       cube.F = materialName;
-      //     } else if (Math.round(updatedFaceNormal.z) === -1) {
-      //       cube.B = materialName;
-      //     }
-      //     materialName = null;
-      //   }
       cubeFaceColors = getFaceColorsOfCube(cubeObj);
       //console.log(cube);
       for (let side in cubeFaceColors) {
@@ -643,56 +620,11 @@ function updateFlattedCubeStatus() {
       )[faces[i]];
     }
   }
-
-  // flattedCubeStatus.LB.L = getFaceColorsOfCube(getCubeByCubeIndex(21)).L;
-  // flattedCubeStatus.LB.B = getFaceColorsOfCube(getCubeByCubeIndex(21)).B;
-  // flattedCubeStatus.LF.L = getFaceColorsOfCube(getCubeByCubeIndex(3)).L;
-  // flattedCubeStatus.LF.F = getFaceColorsOfCube(getCubeByCubeIndex(3)).F;
-  // flattedCubeStatus.LU.L = getFaceColorsOfCube(getCubeByCubeIndex(9)).L;
-  // flattedCubeStatus.LU.U = getFaceColorsOfCube(getCubeByCubeIndex(9)).U;
-  // flattedCubeStatus.LD.L = getFaceColorsOfCube(getCubeByCubeIndex(15)).L;
-  // flattedCubeStatus.LD.D = getFaceColorsOfCube(getCubeByCubeIndex(15)).D;
-  // flattedCubeStatus.DB.D = getFaceColorsOfCube(getCubeByCubeIndex(25)).D;
-  // flattedCubeStatus.DB.B = getFaceColorsOfCube(getCubeByCubeIndex(25)).B;
-  // flattedCubeStatus.DF.D = getFaceColorsOfCube(getCubeByCubeIndex(7)).D;
-  // flattedCubeStatus.DF.F = getFaceColorsOfCube(getCubeByCubeIndex(7)).F;
-  // flattedCubeStatus.UB.U = getFaceColorsOfCube(getCubeByCubeIndex(19)).U;
-  // flattedCubeStatus.UB.B = getFaceColorsOfCube(getCubeByCubeIndex(19)).B;
-  // flattedCubeStatus.UF.U = getFaceColorsOfCube(getCubeByCubeIndex(1)).U;
-  // flattedCubeStatus.UF.F = getFaceColorsOfCube(getCubeByCubeIndex(1)).F;
-  // flattedCubeStatus.RB.R = getFaceColorsOfCube(getCubeByCubeIndex(23)).R;
-  // flattedCubeStatus.RB.B = getFaceColorsOfCube(getCubeByCubeIndex(23)).B;
-  // flattedCubeStatus.RF.R = getFaceColorsOfCube(getCubeByCubeIndex(5)).R;
-  // flattedCubeStatus.RF.F = getFaceColorsOfCube(getCubeByCubeIndex(5)).F;
-  // flattedCubeStatus.RU.R = getFaceColorsOfCube(getCubeByCubeIndex(11)).R;
-  // flattedCubeStatus.RU.U = getFaceColorsOfCube(getCubeByCubeIndex(11)).U;
-  // flattedCubeStatus.RD.R = getFaceColorsOfCube(getCubeByCubeIndex(17)).R;
-  // flattedCubeStatus.RD.D = getFaceColorsOfCube(getCubeByCubeIndex(17)).D;
-  // "LDB", "LDF", "LUB", "LUF", "RDB", "RDF", "RUB", "RUF";
-  // flattedCubeStatus.LDB.L = getFaceColorsOfCube(getCubeByCubeIndex(24)).L;
-  // flattedCubeStatus.LDB.D = getFaceColorsOfCube(getCubeByCubeIndex(24)).D;
-  // flattedCubeStatus.LDB.B = getFaceColorsOfCube(getCubeByCubeIndex(24)).B;
-  // flattedCubeStatus.LDF.L = getFaceColorsOfCube(getCubeByCubeIndex(6)).L;
-  // flattedCubeStatus.LDF.D = getFaceColorsOfCube(getCubeByCubeIndex(6)).D;
-  // flattedCubeStatus.LDF.F = getFaceColorsOfCube(getCubeByCubeIndex(6)).F;
-  // flattedCubeStatus.LUB.L = getFaceColorsOfCube(getCubeByCubeIndex(18)).L;
-  // flattedCubeStatus.LUB.U = getFaceColorsOfCube(getCubeByCubeIndex(18)).U;
-  // flattedCubeStatus.LUB.B = getFaceColorsOfCube(getCubeByCubeIndex(18)).B;
-  // flattedCubeStatus.LUF.L = getFaceColorsOfCube(getCubeByCubeIndex(0)).L;
-  // flattedCubeStatus.LUF.U = getFaceColorsOfCube(getCubeByCubeIndex(0)).U;
-  // flattedCubeStatus.LUF.F = getFaceColorsOfCube(getCubeByCubeIndex(0)).F;
-  // flattedCubeStatus.RDB.R = getFaceColorsOfCube(getCubeByCubeIndex(26)).R;
-  // flattedCubeStatus.RDB.D = getFaceColorsOfCube(getCubeByCubeIndex(26)).D;
-  // flattedCubeStatus.RDB.B = getFaceColorsOfCube(getCubeByCubeIndex(26)).B;
-  // flattedCubeStatus.RDF.R = getFaceColorsOfCube(getCubeByCubeIndex(8)).R;
-  // flattedCubeStatus.RDF.D = getFaceColorsOfCube(getCubeByCubeIndex(8)).D;
-  // flattedCubeStatus.RDF.F = getFaceColorsOfCube(getCubeByCubeIndex(8)).F;
-  // flattedCubeStatus.RUB.R = getFaceColorsOfCube(getCubeByCubeIndex(20)).R;
-  // flattedCubeStatus.RUB.U = getFaceColorsOfCube(getCubeByCubeIndex(20)).U;
-  // flattedCubeStatus.RUB.B = getFaceColorsOfCube(getCubeByCubeIndex(20)).B;
-  // flattedCubeStatus.RUF.R = getFaceColorsOfCube(getCubeByCubeIndex(2)).R;
-  // flattedCubeStatus.RUF.U = getFaceColorsOfCube(getCubeByCubeIndex(2)).U;
-  // flattedCubeStatus.RUF.F = getFaceColorsOfCube(getCubeByCubeIndex(2)).F;
+  //store in session
+  sessionStorage.setItem(
+    "cubeStatusNeededToSolve",
+    JSON.stringify(flattedCubeStatus)
+  );
 }
 
 function getColorsByFace() {
