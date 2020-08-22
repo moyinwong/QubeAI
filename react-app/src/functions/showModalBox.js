@@ -4,6 +4,7 @@ const showModalBox = (currentState) => {
     const modalScanSuccessfully = document.querySelector("#modalScanSuccessfully");
     const modalPleaseScan = document.querySelector("#modalPleaseScan");
     const modalNotSupported = document.querySelector("#modalNotSupported");
+    const modalInvalid = document.querySelector("#modalInvalid");
 
     modalBox.style.display = "flex";
     modalBoxContent.style.display = "flex";
@@ -14,18 +15,28 @@ const showModalBox = (currentState) => {
             modalScanSuccessfully.style.display = "flex";
             modalPleaseScan.style.display = "none";
             modalNotSupported.style.display = "none";
+            modalInvalid.style.display = "none";
             break;
         case "pleaseScan":
             modalBoxContent.style.height = "25vh";
             modalScanSuccessfully.style.display = "none";
             modalPleaseScan.style.display = "flex";
             modalNotSupported.style.display = "none";
+            modalInvalid.style.display = "none";
             break;
         case "notSupported":
             modalBoxContent.style.height = "40vh";
             modalScanSuccessfully.style.display = "none";
             modalPleaseScan.style.display = "none";
             modalNotSupported.style.display = "flex";
+            modalInvalid.style.display = "none";
+            break;
+        case "invalid":
+            modalBoxContent.style.height = "40vh";
+            modalScanSuccessfully.style.display = "none";
+            modalPleaseScan.style.display = "none";
+            modalNotSupported.style.display = "none";
+            modalInvalid.style.display = "flex";
             break;
         case "none":
             modalBox.style.display = "none";

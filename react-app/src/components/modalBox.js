@@ -32,6 +32,15 @@ class ModalBox extends Component {
                             <button onClick={this.closeModalBox}>Go Virtual</button>
                         </div>
                     </div>
+                    <div className="modalElements" id="modalInvalid">
+                        <p className="modalDescriptions">The input is invalid.  Please scan or try another one.</p>
+                        <div className="btnContainerHor">
+                            <Link to={'/scan'} onClick={this.closeModalBox}>
+                                <button>Scan Cube</button>
+                            </Link>
+                            <button onClick={this.closeModalBox}>Go Virtual</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

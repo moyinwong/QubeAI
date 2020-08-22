@@ -27,15 +27,6 @@ class VirtualPage extends Component {
     if (this.props.currentState === "Cube scanned") {
       cubeValue = getCubeValue("scan");
 
-      //   if (result.data === "Invalid input") {
-      //     console.log("Invalid input");
-      //   }
-
-      //   if (result.data[0] == true) {
-      //     moveCubeByList(result.data[0]);
-      //   } else {
-      //     console.log("Oh sorry! AI is not able to handle it! Good uck!");
-      //   }
     } else {
       cubeValue = getCubeValue("virtual");
     }
@@ -43,10 +34,15 @@ class VirtualPage extends Component {
     const result = await axios.post("api/solveCube", cubeValue);
     console.log(result.data);
 
-    // Handle event when the A.I. failed to solve
-    if (result === "Failed") {
+    // Handle events with result received from Express
+    if (result === "Invalid input") {
+      showModalBox("invalid");
+    } else if (result.data[0] == true) {
+      moveCubeByList(result.data[0]);
+    } else {
       showModalBox("notSupported");
     }
+
   };
   render() {
     return (
