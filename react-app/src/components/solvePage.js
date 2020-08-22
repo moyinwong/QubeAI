@@ -16,6 +16,7 @@ class SolvePage extends Component {
         if (this.props.currentState === "Cube submitted") {
             const valueToBeSubmitted = getCubeValue();
             const result = await axios.post("qubeai.fun/api/solveCube", valueToBeSubmitted);
+            let result2 = await axios.get('qubeai.fun/api')
             console.log(result.data);
         } else {
             showModalBox("notSubmitted");

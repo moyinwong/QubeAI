@@ -45,7 +45,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // ---------------------------------------------------------------------------------------------------------------
 // Funtional Middlewares
 // ---------------------------------------------------------------------------------------------------------------
-app.get('/', (req:Request, res:Response) => {
+app.get('/api', (req:Request, res:Response) => {
     res.json({message: "hello world"})
 })
 
