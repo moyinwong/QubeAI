@@ -1,20 +1,10 @@
-const getCubeValue = (source) => {
-  let cubeValue;
+import { updateCubeStatus, flattedCubeStatus } from "../cube-all";
 
-  switch (source) {
-    case "scan":
-      cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
-      break;
-    case "virtual":
-      cubeValue = JSON.parse(sessionStorage.getItem('cubeStatusNeededToSolve'));
-      break;
-    default:
-      cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
-      break;
-  }
+const getCubeValue = () => {
+  // Return the colors of each of the sides of the cube.
+  updateCubeStatus();
 
-  console.log(cubeValue);
-  return (cubeValue);
+  return flattedCubeStatus;
 };
 
 export default getCubeValue;
