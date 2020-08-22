@@ -389,7 +389,7 @@ async function threeStart() {
   }
 }
 
-// threeStart();
+threeStart();
 
 const scannedDataset = JSON.parse(sessionStorage.getItem("allNotations"));
 

@@ -119,7 +119,7 @@ function get_color_name(hsv) {
     if (s <= 48) {
         return 'white'
     }
-    else if ((h >= 120)) {
+    else if ((h >= 110)) {
         return 'red'
     }
     else if (h <= 20) {
@@ -294,7 +294,7 @@ async function openCamera() {
                     // if (index == 5) {
                     //     console.log(avgHsv)
                     // }
-                    //scan button
+                    // scan button
                     let scanButton = document.getElementById('scan')
                     scanButton.addEventListener('click', () => {
                         preview = [...state]

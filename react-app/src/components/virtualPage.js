@@ -27,7 +27,7 @@ class VirtualPage extends Component {
         <div id='canvasContainer'>
           <div id="canvasVirtual"></div>
         </div>
-        <button id="reload" oncClick={window.threeStart}>Reload</button>
+        <button id="reload" oncClick={window.threeStart()}>Reload</button>
         {/* <script src="./three.js"></script>
         <script src="./OrbitControls.js"></script>
 
