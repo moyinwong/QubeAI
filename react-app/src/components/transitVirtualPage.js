@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import redirectWithTimer from '../functions/redirectWithTimer';
-import './transitPage.css';
 
 class TransitVirtualPage extends Component {
     componentDidMount() {

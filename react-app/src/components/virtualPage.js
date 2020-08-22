@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from 'axios';
 import navBarAnimation from "../functions/navBarAnimation";
-//import virtualModel from '../functions/virtualModel';
+import showModalBox from '../functions/showModalBox';
+import getCubeValue from '../functions/getCubeValue';
 import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
 
 class VirtualPage extends Component {
-  constructor(){
+  constructor() {
     super();
     this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
   };
 
-  forceUpdateHandler(){
+  forceUpdateHandler() {
     this.forceUpdate();
   };
 
@@ -19,17 +21,24 @@ class VirtualPage extends Component {
     document.querySelector(".navBar").classList.remove("navBarHidden");
     navBarAnimation("virtual");
   }
-  
+  solveCube = async () => {
+    if (this.props.currentState === "Cube scanned") {
+      const valueToBeSubmitted = getCubeValue();
+      const result = await axios.post("api/solveCube", valueToBeSubmitted);
+      console.log(result.data);
+    } else {
+      showModalBox("notSupported");
+    }
+  }
   render() {
     return (
       <div className="virtualPage">
-        <p>Virtual Page</p>
         <div id='canvasContainer'>
           <div id="canvasVirtual"></div>
         </div>
-        <div ref={function() {window.threeStart()}}></div>
+        <div ref={function () { window.threeStart() }}></div>
         <div className="btnContainerVer">
-          <button>Submit Cube</button>
+          <button className="solveCube" onClick={this.solveCube}>Solve Cube</button>
         </div>
       </div>
     );

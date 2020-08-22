@@ -15,7 +15,7 @@ class ModalBox extends Component {
                     <div className="modalElements" id="modalScanSuccessfully">
                         <p className="modalDescriptions">Would you like our A.I. to SOLVE it for you?</p>
                         <div className="btnContainerHor">
-                            <Link to={'/solve'} onClick={this.closeModalBox}>
+                            <Link to={'/virtual'} onClick={this.closeModalBox}>
                                 <button>Yes</button>
                             </Link>
                         </div>
