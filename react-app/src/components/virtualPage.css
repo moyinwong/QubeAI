@@ -4,4 +4,19 @@
 } */
 body {
   background-color: aquamarine;
+  position: relative;
+}
+
+/* canvas {
+  position: absolute;
+  top: 0px;
+  z-index: -1000;
+} */
+
+/* .wholePage {
+  z-index: -1100;
+} */
+
+.navBar {
+  z-index: 100;
 }
