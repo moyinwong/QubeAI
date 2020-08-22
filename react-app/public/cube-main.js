@@ -384,3 +384,5 @@ threeStart();
 const scannedDataset = JSON.parse(sessionStorage.getItem("allNotations"));
 
 if (scannedDataset) fillInColorsToCubes(scannedDataset);
+
+moveCubeByList(["U'", "L'", "D", "R", "L'"]);
