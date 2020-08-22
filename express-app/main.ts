@@ -45,6 +45,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // ---------------------------------------------------------------------------------------------------------------
 // Funtional Middlewares
 // ---------------------------------------------------------------------------------------------------------------
+app.get('/', (req:Request, res:Response) => {
+    res.json({message: "hello world"})
+})
 
 // Submit Cube Data
 app.post('/solveCube', async (req: Request, res: Response) => {
