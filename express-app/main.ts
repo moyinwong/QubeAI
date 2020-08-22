@@ -53,7 +53,7 @@ app.get("/api", (req: Request, res: Response) => {
 });
 
 // Submit Cube Data
-app.post("/api/solve", async (req: Request, res: Response) => {
+app.post("/api/solveCube", async (req: Request, res: Response) => {
   try {
     console.log(req.body);
 
