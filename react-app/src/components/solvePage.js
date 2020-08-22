@@ -18,7 +18,7 @@ class SolvePage extends Component {
             const result = await axios.post("api/solveCube", valueToBeSubmitted);
             console.log(result.data);
         } else {
-            showModalBox("notSubmitted");
+            showModalBox("notSupported");
         }
     }
     render() {

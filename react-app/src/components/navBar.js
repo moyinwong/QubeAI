@@ -28,13 +28,6 @@ class NavBar extends Component {
                             <div className="mobileDescriptions">Virtual</div>
                         </div>
                     </NavLink>
-                    <NavLink to={'/solve'}>
-                        <div className="navElements">
-                            <div className="icons"><i className="fas fa-calculator"></i></div>
-                            <div className="desktopDescriptions">Solve Cube</div>
-                            <div className="mobileDescriptions">Solve</div>
-                        </div>
-                    </NavLink>
                     <div className="navBorder"></div>
                 </div>
             </div>

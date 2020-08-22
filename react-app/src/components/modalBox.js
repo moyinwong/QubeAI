@@ -23,8 +23,8 @@ class ModalBox extends Component {
                     <div className="modalElements" id="modalPleaseScan">
                         <p className="modalDescriptions">Please scan all the sides before submission.</p>
                     </div>
-                    <div className="modalElements" id="modalNotSubmitted">
-                        <p className="modalDescriptions">Please SCAN or try our VIRTUAL Cube before submittion.</p>
+                    <div className="modalElements" id="modalNotSupported">
+                        <p className="modalDescriptions">This Cube is too complicated.  Please scan or try another one.</p>
                         <div className="btnContainerHor">
                             <Link to={'/scan'} onClick={this.closeModalBox}>
                                 <button>Scan Cube</button>
