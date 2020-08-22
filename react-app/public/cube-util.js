@@ -123,76 +123,78 @@ function moveCube(event) {
 
 //move cube by instruction such as L R'
 function moveCubeByInstruction(instruction) {
-  let target;
-  let direction;
-  if (isRotating) {
-    return;
-  }
+  return new Promise((resolve, reject) => {
+    let target;
+    let direction;
+    if (isRotating) {
+      return;
+    }
 
-  switch (instruction) {
-    case "L":
-      target = scene.getObjectByName("L-Center");
-      direction = 2.2;
-      break;
-    case "L'":
-      target = scene.getObjectByName("L-Center");
-      direction = 2.1;
-      break;
-    case "R":
-      target = scene.getObjectByName("R-Center");
-      direction = 2.1;
-      break;
-    case "R'":
-      target = scene.getObjectByName("R-Center");
-      direction = 2.2;
-      break;
-    case "U":
-      target = scene.getObjectByName("U-Center");
-      direction = 0.4;
-      break;
-    case "U'":
-      target = scene.getObjectByName("U-Center");
-      direction = 1.4;
-      break;
-    case "D":
-      target = scene.getObjectByName("D-Center");
-      direction = 1.4;
-      break;
-    case "D'":
-      target = scene.getObjectByName("D-Center");
-      direction = 0.4;
-      break;
-    case "F":
-      target = scene.getObjectByName("F-Center");
-      direction = 0.1;
-      break;
-    case "F'":
-      target = scene.getObjectByName("F-Center");
-      direction = 0.2;
-      break;
-    case "B":
-      target = scene.getObjectByName("B-Center");
-      direction = 0.2;
-      break;
-    case "B'":
-      target = scene.getObjectByName("B-Center");
-      direction = 0.1;
-      break;
-  }
+    switch (instruction) {
+      case "L":
+        target = scene.getObjectByName("L-Center");
+        direction = 2.2;
+        break;
+      case "L'":
+        target = scene.getObjectByName("L-Center");
+        direction = 2.1;
+        break;
+      case "R":
+        target = scene.getObjectByName("R-Center");
+        direction = 2.1;
+        break;
+      case "R'":
+        target = scene.getObjectByName("R-Center");
+        direction = 2.2;
+        break;
+      case "U":
+        target = scene.getObjectByName("U-Center");
+        direction = 0.4;
+        break;
+      case "U'":
+        target = scene.getObjectByName("U-Center");
+        direction = 1.4;
+        break;
+      case "D":
+        target = scene.getObjectByName("D-Center");
+        direction = 1.4;
+        break;
+      case "D'":
+        target = scene.getObjectByName("D-Center");
+        direction = 0.4;
+        break;
+      case "F":
+        target = scene.getObjectByName("F-Center");
+        direction = 0.1;
+        break;
+      case "F'":
+        target = scene.getObjectByName("F-Center");
+        direction = 0.2;
+        break;
+      case "B":
+        target = scene.getObjectByName("B-Center");
+        direction = 0.2;
+        break;
+      case "B'":
+        target = scene.getObjectByName("B-Center");
+        direction = 0.1;
+        break;
+    }
 
-  isRotating = true;
-  controller.enabled = false;
+    isRotating = true;
+    controller.enabled = false;
 
-  const elements = getBoxes({ object: target }, direction);
+    const elements = getBoxes({ object: target }, direction);
 
-  if (elements) {
-    window.requestAnimFrame(function (timestamp) {
-      rotateAnimation(elements, direction, timestamp, 0);
-    });
-  } else {
-    isRotating = false;
-    controller.enabled = true;
-  }
+    if (elements) {
+      window.requestAnimFrame(function (timestamp) {
+        rotateAnimation(elements, direction, timestamp, 0);
+      });
+    } else {
+      isRotating = false;
+      controller.enabled = true;
+    }
+  });
 }
 
 //rotate animation
@@ -786,5 +788,11 @@ function fillInColorsToCubes(dataset) {
     console.log("filled");
   } catch (err) {
     console.log(err);
+  }
+}
+
+async function moveCubeByList(instructions) {
+  for (let step of instructions) {
+    await moveCubeByInstruction(step);
   }
 }

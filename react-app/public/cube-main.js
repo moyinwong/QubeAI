@@ -343,11 +343,11 @@ const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
 renderer.setSize(canvasWidth, canvasHeight);
 renderer.setClearColor(0x000000, 0); // the default
-document.querySelector("body").appendChild(renderer.domElement);
+document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 
-//start
+//start-------------------------------------------------------------------------------------------------------------------
 function threeStart() {
-  document.querySelector("body").appendChild(renderer.domElement);
+  document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 
   initObject();
   render();
