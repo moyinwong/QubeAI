@@ -38,7 +38,7 @@ class VirtualPage extends Component {
     // Handle events with result received from Express
     if (result === "Invalid input") {
       showModalBox("invalid");
-    } else if (result.data[0] == true) {
+    } else if (result.data[0] === true) {
       moveCubeByList(result.data[1]);
     } else {
       showModalBox("notSupported");
