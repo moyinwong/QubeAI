@@ -29,9 +29,7 @@ class ModalBox extends Component {
                             <Link to={'/scan'} onClick={this.closeModalBox}>
                                 <button>Scan Cube</button>
                             </Link>
-                            <Link to={'/virtual'} onClick={this.closeModalBox}>
-                                <button>Go Virtual</button>
-                            </Link>
+                            <button onClick={this.closeModalBox}>Go Virtual</button>
                         </div>
                     </div>
                 </div>
