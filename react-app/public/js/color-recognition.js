@@ -119,7 +119,7 @@ function get_color_name(hsv) {
     if (s <= 48) {
         return 'white'
     }
-    else if (h >= 120) {
+    else if ((h >= 120)) {
         return 'red'
     }
     else if (h <= 20) {

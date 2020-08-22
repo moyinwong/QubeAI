@@ -6,10 +6,20 @@ import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
 
 class VirtualPage extends Component {
+  constructor(){
+    super();
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+  };
+
+  forceUpdateHandler(){
+    this.forceUpdate();
+  };
+
   componentDidMount() {
     document.querySelector(".navBar").classList.remove("navBarHidden");
     navBarAnimation("virtual");
   }
+  
   render() {
     return (
       <div className="virtualPage">
@@ -17,6 +27,7 @@ class VirtualPage extends Component {
         <div id='canvasContainer'>
           <div id="canvasVirtual"></div>
         </div>
+        <button id="reload" oncClick={window.threeStart}>Reload</button>
         {/* <script src="./three.js"></script>
         <script src="./OrbitControls.js"></script>
 
