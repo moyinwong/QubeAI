@@ -349,8 +349,8 @@ document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 function threeStart() {
   document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 
-  if (scene) {
-    return;
+  if (getCubeByCubeIndex(0)) {
+    return "Already Rendered";
   }
 
   initObject();
