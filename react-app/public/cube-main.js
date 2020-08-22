@@ -363,6 +363,12 @@ function threeStart() {
 
   controller = new THREE.OrbitControls(camera, renderer.domElement);
   controller.target = new THREE.Vector3(0, 0, 0);
+
+  const allNotations = JSON.parse(sessionStorage.getItem("allNotations"));
+
+  if (allNotations) {
+    fillInColorsToCubes(allNotations);
+  }
 }
 
 threeStart();
