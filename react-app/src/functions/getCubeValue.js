@@ -1,9 +1,19 @@
-const getCubeValue = () => {
-    
-    // Return the colors of each of the sides of the cube.
+const getCubeValue = (source) => {
+    let cubeValue;
 
-    const allNotations = JSON.parse(sessionStorage.getItem('allNotations'));
-    return (allNotations);
+    switch (source) {
+        case "scan":
+            cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
+            break;
+        case "virtual":
+            cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
+            break;
+        default:
+            cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
+            break;
+    }
+
+    return (cubeValue);
 }
 
 export default getCubeValue;

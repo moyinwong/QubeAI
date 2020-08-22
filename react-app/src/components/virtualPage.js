@@ -8,25 +8,33 @@ import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
 
 class VirtualPage extends Component {
-  constructor() {
-    super();
-    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
-  };
+  // constructor() {
+  //   super();
+  //   this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+  // };
 
-  forceUpdateHandler() {
-    this.forceUpdate();
-  };
+  // forceUpdateHandler() {
+  //   this.forceUpdate();
+  // };
 
   componentDidMount() {
     document.querySelector(".navBar").classList.remove("navBarHidden");
     navBarAnimation("virtual");
   }
   solveCube = async () => {
+    let cubeValue;
+
     if (this.props.currentState === "Cube scanned") {
-      const valueToBeSubmitted = getCubeValue();
-      const result = await axios.post("api/solveCube", valueToBeSubmitted);
-      console.log(result.data);
+      cubeValue = getCubeValue("scan");
     } else {
+      cubeValue = getCubeValue("virtual");
+    }
+
+    const result = await axios.post("api/solveCube", cubeValue);
+    console.log(result.data);
+
+    // Handle event when the A.I. failed to solve
+    if (result === "Failed") {
       showModalBox("notSupported");
     }
   }

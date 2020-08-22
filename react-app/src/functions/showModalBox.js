@@ -10,16 +10,19 @@ const showModalBox = (currentState) => {
 
     switch (currentState) {
         case "scanSuccessfully":
+            modalBoxContent.style.height = "30vh";
             modalScanSuccessfully.style.display = "flex";
             modalPleaseScan.style.display = "none";
             modalNotSupported.style.display = "none";
             break;
         case "pleaseScan":
+            modalBoxContent.style.height = "25vh";
             modalScanSuccessfully.style.display = "none";
             modalPleaseScan.style.display = "flex";
             modalNotSupported.style.display = "none";
             break;
         case "notSupported":
+            modalBoxContent.style.height = "40vh";
             modalScanSuccessfully.style.display = "none";
             modalPleaseScan.style.display = "none";
             modalNotSupported.style.display = "flex";

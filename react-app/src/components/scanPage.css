@@ -1,5 +1,9 @@
 .scanPage {
     padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #cam_input {
@@ -8,8 +12,11 @@
 
 .scanPage .btnContainerHor {
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    width: 400px;
+    margin-top: 15px;
     margin-bottom: 40px;
 }
 
@@ -18,27 +25,42 @@
         height: 60vh;
         width: 80vh;
     }
-    .scanPage .btnContainerHor {
-        flex-direction: row;
-    }
 }
 
 @media screen and (orientation: portrait) {
     #canvasOutput {
-        height: 66vw;
+        height: 88vw;
         width: 88vw;
-    }
-    .scanPage .btnContainerHor {
-        flex-direction: column;
-    }
-    .scanPage .btnContainerHor button {
-        margin-bottom: 16px;
     }
 }
 
 @media screen and (max-width: 768px) {
     .scanPage {
+        justify-content: flex-end;
         padding-top: 0;
+        padding-bottom: calc(3vh + 98px);
+    }
+    .scanPage .btnContainerHor {
+        position: fixed;
+        left: calc(50vw - 200px);
+        bottom: calc(3vh + 54px);
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .scanPage {
+        padding-top: 0;
+        justify-content: flex-end;
+    }
+    .scanPage .btnContainerHor {
+        position: fixed;
+        bottom: calc(3vh + 38px);
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+    .scanPage .btnContainerHor button {
+        margin-bottom: 16px;
     }
 }
 
