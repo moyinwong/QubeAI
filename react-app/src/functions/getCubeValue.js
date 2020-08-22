@@ -6,9 +6,8 @@ const getCubeValue = () => {
 
   const cubeStatusNeededToSolve = flattedCubeStatus;
 
-  console.log(cubeStatusNeededToSolve);
-
-  return cubeStatusNeededToSolve;
+  console.log(cubeValue);
+  return cubeValue;
 };
 
 export default getCubeValue;

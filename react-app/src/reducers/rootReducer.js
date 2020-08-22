@@ -1,5 +1,5 @@
 const initState = {
-    currentState: "Nothing submitted"
+    currentState: "Not Scanned"
 }
 
 const rootReducer = (state = initState, action) => {
