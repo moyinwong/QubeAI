@@ -349,6 +349,10 @@ document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 function threeStart() {
   document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 
+  if (scene) {
+    return;
+  }
+
   initObject();
   render();
 
