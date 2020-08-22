@@ -291,7 +291,7 @@ async function openCamera() {
                     let avgHsv = average_hsv(allPixels)
                     let colorName = get_color_name(avgHsv)
                     state[index] = colorName
-                    // if (index == 1) {
+                    // if (index == 5) {
                     //     console.log(avgHsv)
                     // }
                     //scan button
@@ -338,6 +338,3 @@ function openCvReady() {
     cv['onRuntimeInitialized'] = openCamera
 }
 
-function hideCanvas() {
-    let canvasContainer = document.getElementById('canvasContainer').setAttribute('style', 'display: none;')
-  }

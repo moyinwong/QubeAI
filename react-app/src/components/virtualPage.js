@@ -15,7 +15,7 @@ class VirtualPage extends Component {
       <div className="virtualPage">
         <p>Virtual Page</p>
         <div id='canvasContainer'>
-          <div id="canvasVirtual" ref={function(){window.threeStart()}}></div>
+          <div id="canvasVirtual"></div>
         </div>
         {/* <script src="./three.js"></script>
         <script src="./OrbitControls.js"></script>
