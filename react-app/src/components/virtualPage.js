@@ -23,24 +23,27 @@ class VirtualPage extends Component {
     navBarAnimation("virtual");
   }
   solveCube = async () => {
-    // if (this.props.currentState === "Cube scanned") {
-    const valueToBeSubmitted = getCubeValue();
-    console.log(valueToBeSubmitted);
-    const result = await axios.post("api/solveCube", valueToBeSubmitted);
+    let cubeValue;
+
+    if (this.props.currentState === "Cube scanned") {
+      cubeValue = getCubeValue("scan");
+
+    } else {
+      cubeValue = getCubeValue("virtual");
+    }
+
+    const result = await axios.post("api/solveCube", cubeValue);
     console.log(result.data);
 
-    if (result.data === "Invalid input") {
-      console.log("Invalid input");
-    }
-
-    if (result.data[0] === true) {
+    // Handle events with result received from Express
+    if (result === "Invalid input") {
+      showModalBox("invalid");
+    } else if (result.data[0] == true) {
       moveCubeByList(result.data[1]);
     } else {
-      console.log("Oh sorry! AI is not able to handle it! Good Luck!");
+      showModalBox("notSupported");
     }
-    // } else {
-    //   showModalBox("notSupported");
-    // }
+
   };
   render() {
     return (
