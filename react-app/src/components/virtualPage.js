@@ -6,6 +6,7 @@ import showModalBox from "../functions/showModalBox";
 import getCubeValue from "../functions/getCubeValue";
 import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
+import { moveCubeByList, threeStart } from "../cube-all";
 
 class VirtualPage extends Component {
   constructor() {
@@ -22,24 +23,24 @@ class VirtualPage extends Component {
     navBarAnimation("virtual");
   }
   solveCube = async () => {
-    if (this.props.currentState === "Cube scanned") {
-      const valueToBeSubmitted = getCubeValue();
-      console.log(valueToBeSubmitted);
-      const result = await axios.post("api/solveCube", valueToBeSubmitted);
-      console.log(result.data);
+    // if (this.props.currentState === "Cube scanned") {
+    const valueToBeSubmitted = getCubeValue();
+    console.log(valueToBeSubmitted);
+    const result = await axios.post("api/solveCube", valueToBeSubmitted);
+    console.log(result.data);
 
-      //   if (result.data === "Invalid input") {
-      //     console.log("Invalid input");
-      //   }
-
-      //   if (result.data[0] == true) {
-      //     moveCubeByList(result.data[0]);
-      //   } else {
-      //     console.log("Oh sorry! AI is not able to handle it! Good uck!");
-      //   }
-    } else {
-      showModalBox("notSupported");
+    if (result.data === "Invalid input") {
+      console.log("Invalid input");
     }
+
+    if (result.data[0] === true) {
+      moveCubeByList(result.data[1]);
+    } else {
+      console.log("Oh sorry! AI is not able to handle it! Good Luck!");
+    }
+    // } else {
+    //   showModalBox("notSupported");
+    // }
   };
   render() {
     return (
@@ -49,7 +50,7 @@ class VirtualPage extends Component {
         </div>
         <div
           ref={function () {
-            window.threeStart();
+            threeStart();
           }}
         ></div>
         <div className="btnContainerVer">
