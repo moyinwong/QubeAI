@@ -343,11 +343,25 @@ const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
 renderer.setSize(canvasWidth, canvasHeight);
 renderer.setClearColor(0x000000, 0); // the default
-document.getElementById("canvasVirtual").appendChild(renderer.domElement);
+// document.getElementById("canvasVirtual").appendChild(renderer.domElement);
 
+function getCanvas() {
+  return new Promise((resolve, reject) => {
+      function check() {
+        const container = document.getElementById("canvasVirtual");
+          if (container) {
+              resolve(container)
+          } else {
+              setTimeout(check)
+          }
+      }
+      check()
+  }) 
+}
 //start-------------------------------------------------------------------------------------------------------------------
-function threeStart() {
-  document.getElementById("canvasVirtual").appendChild(renderer.domElement);
+async function threeStart() {
+  let container = await getCanvas()
+  container.appendChild(renderer.domElement);
 
   if (getCubeByCubeIndex(0)) {
     return "Already Rendered";
@@ -381,4 +395,4 @@ const scannedDataset = JSON.parse(sessionStorage.getItem("allNotations"));
 
 if (scannedDataset) fillInColorsToCubes(scannedDataset);
 
-moveCubeByList(["U'", "L'", "D", "R", "L'"]);
+// moveCubeByList(["U'", "L'", "D", "R", "L'"]);

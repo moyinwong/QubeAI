@@ -6,22 +6,33 @@ import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
 
 class VirtualPage extends Component {
+  constructor(){
+    super();
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+  };
+
+  forceUpdateHandler(){
+    this.forceUpdate();
+  };
+
   componentDidMount() {
     document.querySelector(".navBar").classList.remove("navBarHidden");
     navBarAnimation("virtual");
   }
+  
   render() {
     return (
       <div className="virtualPage">
         <p>Virtual Page</p>
-        <div style={{ width: "500px", height: "500px" }}>
+        <div id='canvasContainer'>
           <div id="canvasVirtual"></div>
         </div>
-        <script src="./three.js"></script>
+        <button id="reload" oncClick={window.threeStart()}>Reload</button>
+        {/* <script src="./three.js"></script>
         <script src="./OrbitControls.js"></script>
 
         <script src="./cube-util.js"></script>
-        <script src="./cube-main.js"></script>
+        <script src="./cube-main.js"></script> */}
         <div className="btnContainerVer">
           <button>Submit Cube</button>
         </div>
