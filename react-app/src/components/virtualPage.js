@@ -4,6 +4,7 @@ import axios from "axios";
 import navBarAnimation from "../functions/navBarAnimation";
 import showModalBox from "../functions/showModalBox";
 import getCubeValue from "../functions/getCubeValue";
+import moveCubeByList from "../../public/cube-util";
 import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
 
