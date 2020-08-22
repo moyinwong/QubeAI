@@ -41,6 +41,12 @@ class ModalBox extends Component {
                             <button onClick={this.closeModalBox}>Go Virtual</button>
                         </div>
                     </div>
+                    <div className="modalElements" id="modalSolved">
+                        <p className="modalDescriptions">Our A.I. has solved the Cube SUCCESSFULLY. Click to see how it solves the Cube.</p>
+                        <div className="btnContainerHor">
+                            <button onClick={this.closeModalBox}>See Results</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

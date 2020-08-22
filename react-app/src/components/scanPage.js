@@ -17,8 +17,7 @@ class ScanPage extends Component {
             console.log(this.props.currentState);
             showModalBox("scanSuccessfully");
         } else {
-            // showModalBox("pleaseScan");
-            showModalBox("scanSuccessfully");
+            showModalBox("pleaseScan");
         }
     }
     render() {
