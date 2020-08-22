@@ -47,16 +47,29 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // ---------------------------------------------------------------------------------------------------------------
 
 // Submit Cube Data
-app.use('/solveCube', async (req: Request, res: Response) => {
+app.post('/solveCube', async (req: Request, res: Response) => {
 
-    console.log(req.body);
-    // To python
-    const result = `Connected to Express suscessfully.`;
+    try {
+        console.log(req.body)
+        const fetchRes = await fetch('http://localhost:4000/solve',{
+        method:"post",
+        headers:{
+            "Content-Type" : "application/json"
+        },
+        body: req.body
+    });
+        let result = fetchRes.json()
+        console.log(result);
 
-    // Res to React
-    if (req.session) {
+        // To python
+        // const result = `Connected to Express suscessfully.`;
+
+        // Res to React
         res.json(result);
+    } catch(e) {
+        console.log(e)
     }
+
 })
 
 // ---------------------------------------------------------------------------------------------------------------
