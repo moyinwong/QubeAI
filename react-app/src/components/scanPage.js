@@ -12,7 +12,7 @@ class ScanPage extends Component {
     }
     submitCube = () => {
         const sidesText = document.querySelector('#sidesText');
-        if (sidesText.innerHTML === "scanned sides: 1/6") {
+        if (sidesText.innerHTML === "scanned sides: 6/6") {
             this.props.changeState("Cube submitted");
             console.log(this.props.currentState);
             showModalBox("scanSuccessfully");
