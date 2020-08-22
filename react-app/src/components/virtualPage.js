@@ -27,12 +27,7 @@ class VirtualPage extends Component {
         <div id='canvasContainer'>
           <div id="canvasVirtual"></div>
         </div>
-        <button id="reload" oncClick={window.threeStart()}>Reload</button>
-        {/* <script src="./three.js"></script>
-        <script src="./OrbitControls.js"></script>
-
-        <script src="./cube-util.js"></script>
-        <script src="./cube-main.js"></script> */}
+        <div ref={function() {window.threeStart()}}></div>
         <div className="btnContainerVer">
           <button>Submit Cube</button>
         </div>
