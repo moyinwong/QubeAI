@@ -363,6 +363,10 @@ async function threeStart() {
   let container = await getCanvas()
   container.appendChild(renderer.domElement);
 
+  if (getCubeByCubeIndex(0)) {
+    return "Already Rendered";
+  }
+
   initObject();
   render();
 
