@@ -338,4 +338,6 @@ function openCvReady() {
     cv['onRuntimeInitialized'] = openCamera
 }
 
-
+function hideCanvas() {
+    let canvasContainer = document.getElementById('canvasContainer').setAttribute('style', 'display: none;')
+  }

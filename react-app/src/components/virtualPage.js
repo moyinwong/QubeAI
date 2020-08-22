@@ -14,14 +14,14 @@ class VirtualPage extends Component {
     return (
       <div className="virtualPage">
         <p>Virtual Page</p>
-        <div style={{ width: "500px", height: "500px" }}>
-          <div id="canvasVirtual"></div>
+        <div id='canvasContainer'>
+          <div id="canvasVirtual" ref={function(){window.threeStart()}}></div>
         </div>
-        <script src="./three.js"></script>
+        {/* <script src="./three.js"></script>
         <script src="./OrbitControls.js"></script>
 
         <script src="./cube-util.js"></script>
-        <script src="./cube-main.js"></script>
+        <script src="./cube-main.js"></script> */}
         <div className="btnContainerVer">
           <button>Submit Cube</button>
         </div>
