@@ -26,10 +26,9 @@ class VirtualPage extends Component {
     let cubeValue;
 
     if (this.props.currentState === "Cube scanned") {
-      cubeValue = getCubeValue("scan");
-
+      cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
     } else {
-      cubeValue = getCubeValue("virtual");
+      cubeValue = getCubeValue();
     }
 
     const result = await axios.post("api/solveCube", cubeValue);
