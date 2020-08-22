@@ -1,7 +1,8 @@
-import express, { NextFunction } from 'express';
-import expressSession from 'express-session';
-import { Request, Response } from 'express';
-import bodyParser from 'body-parser';
+import express, { NextFunction } from "express";
+import expressSession from "express-session";
+import { Request, Response } from "express";
+import bodyParser from "body-parser";
+import fetch from "node-fetch";
 
 // ---------------------------------------------------------------------------------------------------------------
 // Set-up
@@ -16,64 +17,71 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Create Session
-app.use(expressSession({
-    secret: 'Qube is released',
+app.use(
+  expressSession({
+    secret: "Qube is released",
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: false }
-}));
+    cookie: { secure: false },
+  })
+);
 
 // Count requests
 app.use((req: Request, res: Response, next: NextFunction) => {
-    if (req.session) {
-        if (!req.session.counter) {
-            req.session.counter = 1;
-        } else {
-            req.session.counter++;
-        }
-        console.log(`\n Number of session requests: ${req.session.counter}`);
+  if (req.session) {
+    if (!req.session.counter) {
+      req.session.counter = 1;
+    } else {
+      req.session.counter++;
     }
+    console.log(`\n Number of session requests: ${req.session.counter}`);
+  }
 
-    // Get Request Path
-    const requestDate = new Date();
-    const requestTime = `[${requestDate.getFullYear()}-${requestDate.getMonth()}-${requestDate.getDate()} ${requestDate.getHours()}:${requestDate.getMinutes()}:${requestDate.getSeconds()}]`;
-    console.log(`${requestTime} Request: ${req.path}`);
+  // Get Request Path
+  const requestDate = new Date();
+  const requestTime = `[${requestDate.getFullYear()}-${requestDate.getMonth()}-${requestDate.getDate()} ${requestDate.getHours()}:${requestDate.getMinutes()}:${requestDate.getSeconds()}]`;
+  console.log(`${requestTime} Request: ${req.path}`);
 
-    next();
-})
+  next();
+});
 
 // ---------------------------------------------------------------------------------------------------------------
 // Funtional Middlewares
 // ---------------------------------------------------------------------------------------------------------------
-app.get('/api', (req:Request, res:Response) => {
-    res.json({message: "hello world"})
-})
+app.get("/api", (req: Request, res: Response) => {
+  res.json({ message: "hello world" });
+});
 
 // Submit Cube Data
-app.post('/api/solveCube', async (req: Request, res: Response) => {
+app.post("/api/solve", async (req: Request, res: Response) => {
+  try {
+    console.log(req.body);
 
-    try {
-        console.log(req.body)
-        const fetchRes = await fetch('http://localhost:4000/solve',{
-        method:"post",
-        headers:{
-            "Content-Type" : "application/json"
-        },
-        body: req.body
+    const fetchRes = await fetch("http://localhost:5000/solve", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(req.body),
     });
-        let result = fetchRes.json()
-        console.log(result);
 
-        // To python
-        // const result = `Connected to Express suscessfully.`;
+    let result = await fetchRes.json();
+    // if (result) {
+    //   console.log(result);
+    // } else {
+    //   console.log("no result");
+    // }
 
-        // Res to React
-        res.json(result);
-    } catch(e) {
-        console.log(e)
-    }
+    // To python
+    // const result = `Connected to Express suscessfully.`;
 
-})
+    // Res to React
+    res.json(result);
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // ---------------------------------------------------------------------------------------------------------------
 // PORT
@@ -83,5 +91,5 @@ app.post('/api/solveCube', async (req: Request, res: Response) => {
 const PORT = 8080;
 
 app.listen(PORT, () => {
-    console.log(`Listening to ${PORT}`);
-})
+  console.log(`Listening to ${PORT}`);
+});
