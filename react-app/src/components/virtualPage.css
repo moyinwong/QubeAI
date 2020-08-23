@@ -18,11 +18,20 @@
   width: 100%;
 }
 
+.virtualPage .btnContainerVer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 108px;
+  width: 200px;
+}
+
 @media screen and (orientation: landscape) {
   .virtualPage .btnContainerVer {
     position: fixed;
     left: calc((50vw - 540px) + 5vw);
-    bottom: calc(50vh - 23px);
+    bottom: calc(50vh - 54px);
   }
 }
 
@@ -36,8 +45,24 @@
 
 @media screen and (orientation: portrait) {
   .virtualPage .btnContainerVer {
+    flex-direction: row;
+    justify-content: space-around;
+    height: 46px;
+    width: 400px;
     position: fixed;
-    left: calc(50vw - 80px);
+    left: calc(50vw - 200px);
+    bottom: calc(3vh + 54px);
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 430px) {
+  .virtualPage .btnContainerVer {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 108px;
+    width: 200px;
+    position: fixed;
+    left: calc(50vw - 100px);
     bottom: calc(3vh + 54px);
   }
 }

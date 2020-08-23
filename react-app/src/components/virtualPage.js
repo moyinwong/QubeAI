@@ -60,11 +60,11 @@ class VirtualPage extends Component {
           }}
         ></div>
         <div className="btnContainerVer">
-          <button className="solveCube" onClick={this.solveCube}>
-            Solve Cube
-          </button>
           <button className="solveCube" onClick={this.resetCube}>
             Reset Cube
+          </button>
+          <button className="solveCube" onClick={this.solveCube}>
+            Solve Cube
           </button>
         </div>
       </div>
