@@ -217,7 +217,7 @@ async function openCamera() {
         let stream = null;
         try {
             // Prefer the rear camera (if available) rather than the front camera in Mobile devices
-            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } }, audio: false })
+            stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false })
             video.srcObject = stream;
             video.play();
             
