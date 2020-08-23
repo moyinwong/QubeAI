@@ -97,10 +97,8 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.set(200, 200, 600);
-camera.up.set(0, 1, 0); //正方向
+camera.up.set(0, 1, 0);
 camera.lookAt(origPoint);
-
-//创建场景，后续元素需要加入到场景中才会显示出来
 
 const scene = new THREE.Scene();
 
@@ -315,8 +313,10 @@ function initObject() {
     });
     scene.add(cubes[i]);
   }
+}
 
-  //not visible
+//not visible
+function initInvisibleCube() {
   const cubegeo = new THREE.BoxGeometry(150, 150, 150);
   let hex = 0x000000;
   for (let i = 0; i < cubegeo.faces.length; i += 2) {
@@ -383,8 +383,12 @@ export async function threeStart() {
   renderer.domElement.addEventListener("touchmove", moveCube, false);
   renderer.domElement.addEventListener("touchend", stopCube, false);
 
-  controller = new OrbitControls(camera, renderer.domElement);
-  controller.target = new THREE.Vector3(0, 0, 0);
+  if (!controller) {
+    controller = new OrbitControls(camera, renderer.domElement);
+    controller.target = new THREE.Vector3(0, 0, 0);
+
+    initInvisibleCube();
+  }
 
   const allNotations = JSON.parse(sessionStorage.getItem("allNotations"));
 
@@ -1138,4 +1142,14 @@ export async function moveCubeByList(instructions) {
     moveCubeByInstruction(step);
     await moveCubeTimeOut(2000);
   }
+}
+
+export function resetCubeState() {
+  console.log();
+  for (let i = 0; i < 27; i++) {
+    const needToDeleteCube = getCubeByCubeIndex(i);
+    scene.remove(needToDeleteCube);
+  }
+  threeStart();
+  updateCubeStatus();
 }

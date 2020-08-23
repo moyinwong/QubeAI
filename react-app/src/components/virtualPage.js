@@ -6,7 +6,7 @@ import showModalBox from "../functions/showModalBox";
 import getCubeValue from "../functions/getCubeValue";
 import { changeState } from "../actions/changeState";
 import "./virtualPage.css";
-import { moveCubeByList, threeStart } from "../cube-all";
+import { moveCubeByList, threeStart, resetCubeState } from "../cube-all";
 
 class VirtualPage extends Component {
   constructor() {
@@ -22,13 +22,18 @@ class VirtualPage extends Component {
     document.querySelector(".navBar").classList.remove("navBarHidden");
     navBarAnimation("virtual");
   }
+
+  resetCube() {
+    resetCubeState();
+  }
+
   solveCube = async () => {
     let cubeValue;
 
     // if (this.props.currentState === "Cube scanned") {
     //   cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
     // } else {
-      cubeValue = getCubeValue();
+    cubeValue = getCubeValue();
     // }
 
     const result = await axios.post("api/solveCube", cubeValue);
@@ -42,7 +47,6 @@ class VirtualPage extends Component {
     } else {
       showModalBox("notSupported");
     }
-
   };
   render() {
     return (
@@ -58,6 +62,9 @@ class VirtualPage extends Component {
         <div className="btnContainerVer">
           <button className="solveCube" onClick={this.solveCube}>
             Solve Cube
+          </button>
+          <button className="solveCube" onClick={this.resetCube}>
+            Reset Cube
           </button>
         </div>
       </div>
