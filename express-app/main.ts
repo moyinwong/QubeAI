@@ -57,7 +57,7 @@ app.post("/api/solveCube", async (req: Request, res: Response) => {
   try {
     console.log(req.body);
 
-    const fetchRes = await fetch("http://localhost:4000/solve", {
+    const fetchRes = await fetch("http://localhost:5000/solve", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

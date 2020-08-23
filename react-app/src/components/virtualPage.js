@@ -25,11 +25,11 @@ class VirtualPage extends Component {
   solveCube = async () => {
     let cubeValue;
 
-    if (this.props.currentState === "Cube scanned") {
-      cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
-    } else {
+    // if (this.props.currentState === "Cube scanned") {
+    //   cubeValue = JSON.parse(sessionStorage.getItem('allNotations'));
+    // } else {
       cubeValue = getCubeValue();
-    }
+    // }
 
     const result = await axios.post("api/solveCube", cubeValue);
     console.log(result.data);
