@@ -990,6 +990,7 @@ export function updateCubeStatus() {
     }
     updateFlattedCubeStatus();
     console.log("updated");
+    console.log(flattedCubeStatus);
     return;
   } catch (err) {
     console.log(err);

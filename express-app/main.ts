@@ -2,7 +2,7 @@ import express, { NextFunction } from "express";
 import expressSession from "express-session";
 import { Request, Response } from "express";
 import bodyParser from "body-parser";
-import fetch from "node-fetch";
+//import fetch from "node-fetch";
 
 // ---------------------------------------------------------------------------------------------------------------
 // Set-up
@@ -52,36 +52,47 @@ app.get("/api", (req: Request, res: Response) => {
   res.json({ message: "hello world" });
 });
 
+//refact
+import { SolveService } from "./SolveService";
+import { SolveController } from "./SolveController";
+
+const solveService = new SolveService();
+export const solveController = new SolveController(solveService);
+
+import { solveRoutes } from "./solveRoutes";
+
+app.use("/", solveRoutes);
+
 // Submit Cube Data
-app.post("/api/solveCube", async (req: Request, res: Response) => {
-  try {
-    console.log(req.body);
+// app.post("/api/solveCube", async (req: Request, res: Response) => {
+//   try {
+//     console.log(req.body);
 
-    const fetchRes = await fetch("http://localhost:4000/solve", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req.body),
-    });
+//     const fetchRes = await fetch("http://localhost:5000/solve", {
+//       method: "post",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(req.body),
+//     });
 
-    let result = await fetchRes.json();
-    // if (result) {
-    //   console.log(result);
-    // } else {
-    //   console.log("no result");
-    // }
+//     let result = await fetchRes.json();
+//     // if (result) {
+//     //   console.log(result);
+//     // } else {
+//     //   console.log("no result");
+//     // }
 
-    // To python
-    // const result = `Connected to Express suscessfully.`;
+//     // To python
+//     // const result = `Connected to Express suscessfully.`;
 
-    // Res to React
-    res.json(result);
-  } catch (e) {
-    console.log(e);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+//     // Res to React
+//     res.json(result);
+//   } catch (e) {
+//     console.log(e);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
 
 // ---------------------------------------------------------------------------------------------------------------
 // PORT
