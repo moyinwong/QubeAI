@@ -1,2 +1,0 @@
-python-version=3.7
-opencv-python-version=4.3.0.36
