@@ -160,7 +160,6 @@ function sides_to_notation(sides) {
     if (Object.keys(sides).length != 6) {
         return false
     }
-
     all_notations = {}
 
     all_notations['L'] = 'red'
@@ -172,7 +171,7 @@ function sides_to_notation(sides) {
 
     all_notations['LB'] = [sides['L'][3], sides['B'][5]]
     all_notations['LF'] = [sides['L'][5], sides['F'][3]]
-    all_notations['LU'] = [sides['L'][1], sides['U'][4]]
+    all_notations['LU'] = [sides['L'][1], sides['U'][3]]
     all_notations['LD'] = [sides['L'][7], sides['D'][3]]
     all_notations['DB'] = [sides['D'][7], sides['B'][7]]
     all_notations['DF'] = [sides['D'][1], sides['F'][7]]
@@ -322,12 +321,6 @@ async function openCamera() {
         let allNotationsButton = document.getElementById('notations')
         allNotationsButton.addEventListener('click', () => {
             allNotations = sides_to_notation(sides)
-            // console.log(allNotations)
-
-            // src.delete()
-            // dst.delete()
-            // hsv.delete()
-            // hsvCopy.delete()
 
             sessionStorage.setItem('allNotations', JSON.stringify(allNotations));
         })

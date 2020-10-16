@@ -1114,14 +1114,14 @@ function fillInColorsToCubes(dataset) {
       //eg faces : LB
       for (let i = 0; i < faces.length; i++) {
         const cubeIndex = sideFindCubeIndex[faces];
-        console.log(faces);
-        console.log("cubeIndex: ", cubeIndex);
+        // console.log(faces);
+        // console.log("cubeIndex: ", cubeIndex);
         const sideIndex = sides[faces[i]];
-        console.log("face :", faces[i]);
-        console.log("sideIndex :", sideIndex);
-        console.log("dataset faces: ", dataset[faces]);
+        // console.log("face :", faces[i]);
+        // console.log("sideIndex :", sideIndex);
+        // console.log("dataset faces: ", dataset[faces]);
         const colorNeedToFill = dataset[faces][i];
-        console.log("colorNeedToFill :", colorNeedToFill);
+        // console.log("colorNeedToFill :", colorNeedToFill);
         const colorMaterial = materials[colorNeedToFill];
         getCubeByCubeIndex(cubeIndex).material[sideIndex] = colorMaterial;
       }
